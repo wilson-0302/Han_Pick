@@ -1,4 +1,4 @@
 package com.exmaple.han_pick.service;
 
-public interface Service {
+public interface BoardService {
 }
