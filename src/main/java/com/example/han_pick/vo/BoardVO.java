@@ -1,4 +1,4 @@
-package com.exmaple.han_pick.vo;
+package com.example.han_pick.vo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
