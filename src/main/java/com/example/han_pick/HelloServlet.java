@@ -1,4 +1,4 @@
-package com.exmaple.han_pick;
+package com.example.han_pick;
 
 import java.io.*;
 import javax.servlet.http.*;

@@ -7,6 +7,9 @@
 </head>
 <body>
 <h1>Handong Pick</h1>
+<form method="get" action="auth/login">
+    <input type="submit" value="로그인" />
+</form>
 <p><%-- TODO: Add introduction and highlight key services --%></p>
 <nav>
     <%-- TODO: Add navigation links (로그인, 모집글 보기 등) --%>
