@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Handong Pick</title>
+    <title>Hanpick</title>
     <%-- TODO: Link common CSS/JS from /assets --%>
 </head>
 <body>
