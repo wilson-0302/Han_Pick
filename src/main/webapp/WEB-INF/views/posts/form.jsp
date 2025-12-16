@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -74,6 +76,7 @@
     </style>
 </head>
 <body>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top px-3">
@@ -87,9 +90,9 @@
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navMenu">
                 <ul class="navbar-nav gap-lg-4 align-items-center">
-                    <li class="nav-item"><a class="nav-link text-secondary-custom" href="#">대시보드</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">모집 공고</a></li>
-                    <li class="nav-item"><a class="nav-link text-secondary-custom" href="#">내 활동</a></li>
+                    <li class="nav-item"><a class="nav-link text-secondary-custom" href="${ctx}/">홈</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="${ctx}/list">모집 공고</a></li>
+                    <li class="nav-item"><a class="nav-link text-secondary-custom" href="${ctx}/posts/manage">내 활동</a></li>
                     <li class="nav-item">
                         <div class="rounded-circle overflow-hidden border border-dark" style="width: 36px; height: 36px;">
                             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3NjplSePiQZwEsN3jwNPN2nSrnDD5fTubKM6d9UyuTkaDy-I9jINnEmlLgBSPeLU3fgGnLg-gWt47Gra3Fcvo5LhL97bxi4SQ81P9ExDedTCG_W94SGi0IGPCoyQ6oHlhyFjnQj7CrzG0MQlv7pi5bnHaIQzUC2XQTOqe_B1lLJ6hEPW9u4e347zf7RRilxCIyiaKvVLN9GaZkVPp_7jawtwaRAZMi61rrLknfZbMB1DwCKse--qMbnAlztUz-O39t_-eeEVVFkv5" alt="Profile" class="w-100 h-100 object-fit-cover">

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -101,9 +102,10 @@
     </style>
 </head>
 <body>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-lg">
-        <div class="d-flex align-items-center text-white fw-bold fs-5" role="button" onclick="window.location.href='/'">
+        <div class="d-flex align-items-center text-white fw-bold fs-5" role="button" onclick="window.location.href='${ctx}/'">
             <span class="material-symbols-outlined me-2 fs-3 text-primary">school</span>
             Hanpick
         </div>
@@ -112,11 +114,11 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navMenu">
             <ul class="navbar-nav me-3 mb-2 mb-lg-0 gap-lg-4">
-                <li class="nav-item"><a class="nav-link" href="#">소개</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">기능</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">문의하기</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ctx}/">소개</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ctx}/list">기능</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ctx}/">문의하기</a></li>
             </ul>
-            <button class="btn btn-primary px-3">회원가입</button>
+            <a class="btn btn-primary px-3" href="${ctx}/auth/signup">회원가입</a>
         </div>
     </div>
 </nav>
@@ -157,7 +159,7 @@
                 </form>
                 <div class="text-center mt-4 text-secondary-custom">
                     <span class="small">아직 계정이 없으신가요?</span>
-                    <a class="text-primary fw-bold text-decoration-none ms-1" href="#">회원가입</a>
+                    <a class="text-primary fw-bold text-decoration-none ms-1" href="${ctx}/auth/signup">회원가입</a>
                 </div>
             </div>
             <div class="text-center mt-4">
