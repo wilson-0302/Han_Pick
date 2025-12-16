@@ -1,4 +1,4 @@
-# 📌 Handong Pick – Backend
+# 📌 Hanpick – Backend
 
 > 한동대학교 통합 모집·정보 플랫폼 백엔드 API  
 > 프로젝트 기획서 기반 개발용 README 문서
@@ -6,7 +6,7 @@
 ---
 
 ## 📖 프로젝트 소개
-Handong Pick(한동픽)은 한동대학교 내 다양한 **구인 활동(설문, 촬영, 근로, 팀프로젝트 등)** 과  
+Hanpick은 한동대학교 내 다양한 **구인 활동(설문, 촬영, 근로, 팀프로젝트 등)** 과  
 **공모전·대외활동 정보**를 한 곳에 모아 제공하는 **통합 정보 플랫폼**입니다.
 
 현재 오픈채팅방, SNS, 히즈넷 등 여러 곳에 흩어진 정보 문제를 해결하고  
@@ -27,7 +27,7 @@ Handong Pick(한동픽)은 한동대학교 내 다양한 **구인 활동(설문,
 
 | 항목 | 주소 |
 |------|------|
-| GitHub Repository | https://github.com/wilson-0302/Handong_Pick.git |
+| GitHub Repository | https://github.com/wilson-0302/Hanpick.git |
 | API 서버 배포 URL | _(예정)_ |
 | 벤치마킹 서비스 | https://www.campuspick.com/ |
 
@@ -198,6 +198,4 @@ src/main/webapp/
         ├─ 404.jsp
         └─ 500.jsp
     
-
-
 
