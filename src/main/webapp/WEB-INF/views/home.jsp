@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -110,6 +111,7 @@
     </style>
 </head>
 <body>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-lg">
         <div class="d-flex align-items-center text-white fw-bold fs-5">
@@ -121,14 +123,14 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navMenu">
             <ul class="navbar-nav me-3 mb-2 mb-lg-0 gap-lg-4">
-                <li class="nav-item"><a class="nav-link" href="#">소개</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">기능</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">팀 찾기</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">문의하기</a></li>
+                <li class="nav-item"><a class="nav-link" href="#hero">소개</a></li>
+                <li class="nav-item"><a class="nav-link" href="#features">기능</a></li>
+                <li class="nav-item"><a class="nav-link" href="${ctx}/list">팀 찾기</a></li>
+                <li class="nav-item"><a class="nav-link" href="#footer">문의하기</a></li>
             </ul>
             <div class="d-flex gap-2">
-                <button class="btn btn-primary px-3">회원가입</button>
-                <button class="btn btn-outline-light px-3">로그인</button>
+                <a class="btn btn-primary px-3" href="${ctx}/auth/signup">회원가입</a>
+                <a class="btn btn-outline-light px-3" href="${ctx}/auth/login">로그인</a>
             </div>
         </div>
     </div>
@@ -136,7 +138,7 @@
 
 <main>
     <!-- Hero -->
-    <section class="container-lg py-5 py-md-5">
+    <section id="hero" class="container-lg py-5 py-md-5">
         <div class="row align-items-center g-4 flex-column-reverse flex-lg-row">
             <div class="col-lg-6 d-flex flex-column gap-3">
                 <h1 class="display-5 fw-bold">
@@ -147,8 +149,8 @@
                     동아리, 학회, 프로젝트 팀원을 찾는 가장 쉬운 방법입니다.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
-                    <button class="btn btn-primary btn-lg px-4">시작하기</button>
-                    <button class="btn btn-outline-light btn-lg px-4">로그인</button>
+                    <a class="btn btn-primary btn-lg px-4" href="${ctx}/auth/signup">시작하기</a>
+                    <a class="btn btn-outline-light btn-lg px-4" href="${ctx}/auth/login">로그인</a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -192,7 +194,7 @@
     </section>
 
     <!-- Features -->
-    <section class="container-lg py-5">
+    <section id="features" class="container-lg py-5">
         <div class="text-center mb-5">
             <div class="text-primary fw-bold text-uppercase mb-2" style="letter-spacing: 0.08em;">Features</div>
             <h2 class="section-title fs-1">주요 기능</h2>
@@ -230,17 +232,17 @@
     </section>
 
     <!-- Dashboard CTA -->
-    <section class="container-lg pb-5">
+    <section id="dashboard" class="container-lg pb-5">
         <div class="cta-card rounded-4 overflow-hidden">
             <div class="row g-0">
                 <div class="col-lg-6 p-5 d-flex flex-column justify-content-center gap-3">
                     
                     <h3 class="fw-bold fs-2 mb-0">더 쉽고 효율적인<br>팀 관리</h3>
                     <p class="text-secondary-custom mb-2">지원자 관리부터 합격자 발표까지, Hanpick 대시보드에서 한눈에 관리하세요. 복잡한 절차를 자동화하여 본질에 집중할 수 있습니다.</p>
-                    <button class="btn btn-outline-light d-inline-flex align-items-center gap-1 px-3" type="button">
+                    <a class="btn btn-outline-light d-inline-flex align-items-center gap-1 px-3" href="${ctx}/list">
                         기능 더보기
                         <span class="material-symbols-outlined">arrow_forward</span>
-                    </button>
+                    </a>
                 </div>
                 <div class="col-lg-6 position-relative">
                     <div class="h-100" style="background: radial-gradient(circle at 20% 20%, rgba(43,189,238,0.2), transparent 40%), var(--bg-dark);">
@@ -259,13 +261,13 @@
             <p class="text-secondary-custom fs-6 mb-4">
                 한동대학교 학우들과 함께 성장하는 즐거움, Hanpick에서 경험해보세요.
             </p>
-            <button class="btn btn-primary btn-lg px-4">무료로 회원가입</button>
+            <a class="btn btn-primary btn-lg px-4" href="${ctx}/auth/signup">무료로 회원가입</a>
         </div>
     </section>
 </main>
 
 <!-- Footer -->
-<footer class="footer py-5 mt-4">
+<footer id="footer" class="footer py-5 mt-4">
     <div class="container-lg">
         <div class="row gy-4">
             <div class="col-md-4">
@@ -279,17 +281,17 @@
                 <div>
                     <h6 class="text-white fw-bold">서비스</h6>
                     <ul class="list-unstyled mb-0">
-                        <li><a class="text-secondary-custom text-decoration-none" href="#">기능 소개</a></li>
-                        <li><a class="text-secondary-custom text-decoration-none" href="#">팀 찾기</a></li>
-                        <li><a class="text-secondary-custom text-decoration-none" href="#">프로젝트</a></li>
+                        <li><a class="text-secondary-custom text-decoration-none" href="#features">기능 소개</a></li>
+                        <li><a class="text-secondary-custom text-decoration-none" href="${ctx}/list">팀 찾기</a></li>
+                        <li><a class="text-secondary-custom text-decoration-none" href="#dashboard">프로젝트</a></li>
                     </ul>
                 </div>
                 <div>
                     <h6 class="text-white fw-bold">지원</h6>
                     <ul class="list-unstyled mb-0">
-                        <li><a class="text-secondary-custom text-decoration-none" href="#">자주 묻는 질문</a></li>
-                        <li><a class="text-secondary-custom text-decoration-none" href="#">문의하기</a></li>
-                        <li><a class="text-secondary-custom text-decoration-none" href="#">이용약관</a></li>
+                        <li><a class="text-secondary-custom text-decoration-none" href="#footer">자주 묻는 질문</a></li>
+                        <li><a class="text-secondary-custom text-decoration-none" href="#footer">문의하기</a></li>
+                        <li><a class="text-secondary-custom text-decoration-none" href="#footer">이용약관</a></li>
                     </ul>
                 </div>
             </div>

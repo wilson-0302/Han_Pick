@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -65,6 +67,7 @@
     </style>
 </head>
 <body>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
@@ -78,9 +81,9 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between" id="navMenu">
                 <ul class="navbar-nav gap-lg-4 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link" href="#">홈</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="#">모집</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">커뮤니티</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/">홈</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="${ctx}/list">모집</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">마이페이지</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-2">
                     <button class="btn btn-outline-light border-0 px-3"><span class="material-symbols-outlined">notifications</span></button>

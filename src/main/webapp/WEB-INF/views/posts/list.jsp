@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -88,6 +90,7 @@
     </style>
 </head>
 <body>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <div class="d-flex flex-column min-vh-100">
     <!-- Header -->
     <nav class="navbar navbar-expand-lg sticky-top">
@@ -101,9 +104,9 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navMenu">
                 <ul class="navbar-nav gap-lg-4">
-                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Recruitment</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Community</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="${ctx}/list">Recruitment</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">My Posts</a></li>
                 </ul>
             </div>
             <div class="d-flex align-items-center gap-2">
