@@ -131,31 +131,85 @@
                     <h1 class="h3 fw-bold text-white mb-2">로그인</h1>
                     <p class="mb-0 text-secondary-custom small">Hanpick 서비스 이용을 위해 로그인해주세요.</p>
                 </div>
-                <form class="d-flex flex-column gap-3">
+<%--                <form method="post" action="${ctx}/auth/login_ok" class="d-flex flex-column gap-3">--%>
+<%--                    <div class="form-group">--%>
+<%--                        <label for="email" class="form-label fw-semibold text-white small">아이디 또는 이메일</label>--%>
+<%--                        <div class="position-relative">--%>
+<%--                            <span class="material-symbols-outlined input-icon">person</span>--%>
+<%--                            <input type="text" class="form-control input-with-icon" id="email" name="email" placeholder="학번 또는 이메일 입력">--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div class="form-group">--%>
+<%--                        <div class="d-flex justify-content-between align-items-end">--%>
+<%--                            <label for="password" class="form-label fw-semibold text-white small mb-1">비밀번호</label>--%>
+<%--                        </div>--%>
+<%--                        <div class="position-relative">--%>
+<%--                            <span class="material-symbols-outlined input-icon">lock</span>--%>
+<%--                            <input type="password" class="form-control input-with-icon" id="password" name="password" placeholder="비밀번호 입력">--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div class="d-flex justify-content-between align-items-center">--%>
+<%--                        <div class="form-check">--%>
+<%--                            <input class="form-check-input" type="checkbox" id="remember">--%>
+<%--                            <label class="form-check-label text-secondary-custom small" for="remember">로그인 상태 유지</label>--%>
+<%--                        </div>--%>
+<%--                        <a class="text-primary small text-decoration-none" href="#">비밀번호 찾기</a>--%>
+<%--                    </div>--%>
+<%--                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">로그인</button>--%>
+<%--                </form>--%>
+                <form method="post" action="${ctx}/auth/login_ok" class="d-flex flex-column gap-3">
+
+                    <!-- 로그인 실패 메시지 -->
+                    <c:if test="${not empty param.msg}">
+                        <div class="alert alert-danger small text-center mb-2">
+                                ${param.msg}
+                        </div>
+                    </c:if>
+
                     <div class="form-group">
-                        <label for="email" class="form-label fw-semibold text-white small">아이디 또는 이메일</label>
+                        <label for="loginId" class="form-label fw-semibold text-white small">
+                            아이디
+                        </label>
                         <div class="position-relative">
                             <span class="material-symbols-outlined input-icon">person</span>
-                            <input type="text" class="form-control input-with-icon" id="email" name="email" placeholder="학번 또는 이메일 입력">
+                            <input type="text"
+                                   class="form-control input-with-icon"
+                                   id="loginId"
+                                   name="loginId"
+                                   placeholder="아이디 입력">
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <div class="d-flex justify-content-between align-items-end">
-                            <label for="password" class="form-label fw-semibold text-white small mb-1">비밀번호</label>
-                        </div>
+                        <label for="password" class="form-label fw-semibold text-white small mb-1">
+                            비밀번호
+                        </label>
                         <div class="position-relative">
                             <span class="material-symbols-outlined input-icon">lock</span>
-                            <input type="password" class="form-control input-with-icon" id="password" name="password" placeholder="비밀번호 입력">
+                            <input type="password"
+                                   class="form-control input-with-icon"
+                                   id="password"
+                                   name="password"
+                                   placeholder="비밀번호 입력">
                         </div>
                     </div>
+
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="remember">
-                            <label class="form-check-label text-secondary-custom small" for="remember">로그인 상태 유지</label>
+                            <label class="form-check-label text-secondary-custom small" for="remember">
+                                로그인 상태 유지
+                            </label>
                         </div>
-                        <a class="text-primary small text-decoration-none" href="#">비밀번호 찾기</a>
+                        <a class="text-primary small text-decoration-none" href="#">
+                            비밀번호 찾기
+                        </a>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">로그인</button>
+
+                    <button type="submit"
+                            class="btn btn-primary w-100 py-2 fw-bold shadow-sm">
+                        로그인
+                    </button>
                 </form>
                 <div class="text-center mt-4 text-secondary-custom">
                     <span class="small">아직 계정이 없으신가요?</span>
