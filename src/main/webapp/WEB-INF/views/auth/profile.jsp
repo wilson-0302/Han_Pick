@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -52,6 +53,15 @@
 </head>
 <body>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="user" value="${sessionScope.user}" />
+<c:set var="postCount" value="${requestScope.postCount}" />
+<c:if test="${empty postCount}">
+    <c:set var="postCount" value="0" />
+</c:if>
+<c:set var="scrapCount" value="${requestScope.scrapCount}" />
+<c:if test="${empty scrapCount}">
+    <c:set var="scrapCount" value="0" />
+</c:if>
 <div class="d-flex flex-column min-vh-100">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg px-3">
@@ -66,12 +76,10 @@
             <div class="collapse navbar-collapse justify-content-between" id="navMenu">
                 <ul class="navbar-nav gap-lg-4 ms-lg-4">
                     <li class="nav-item"><a class="nav-link" href="${ctx}/list">모집 공고</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">정보 공유</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">커뮤니티</a></li>
                     <li class="nav-item"><a class="nav-link active" href="${ctx}/auth/profile">마이페이지</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <button class="btn btn-outline-light btn-sm">로그아웃</button>
+                    <a class="btn btn-outline-light btn-sm" href="${ctx}/auth/logout">로그아웃</a>
                     <div class="rounded-circle overflow-hidden border border-primary" style="width:36px; height:36px; background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZYBzOPspzvkU4hh9S7LGo0Zmi6kkAF4BjRJTR3YwztNDkVOPENdEPP2ag8CtzUFB1qI6uWtwDe3VP8xDDrKUpRMt1vT8QvZRpUd4cEkmyiW8LGh-KXKZtxYOWuXzAA79TrQ9H0VR1NyWPMAcim413PIJaTSAuQiK16EWmmp3zgwnAKu3F79ZR6SlHrUXFZuFL2-6yUi6GcPLiyBS5t8fl_4QkrdzjiIJMkWP4129YFrlW3zdkXPmJ_Fmgk_NHpoMm2bTb927QAjA3'); background-size:cover; background-position:center;"></div>
                 </div>
             </div>
@@ -96,18 +104,30 @@
                         </div>
                         <div class="flex-grow-1 text-center text-md-start">
                             <div class="d-flex flex-wrap align-items-center gap-2 justify-content-center justify-content-md-start mb-1">
-                                <h2 class="fw-bold mb-0">김한동</h2>
+                                <h2 class="fw-bold mb-0"><c:out value="${user.name}" default="이름 미등록"/></h2>
                                 <span class="badge bg-primary bg-opacity-25 text-primary fw-bold">재학생</span>
                             </div>
-                            <div class="text-secondary-custom">전산전자공학부 4학년 · 21900123</div>
+                            <div class="text-secondary-custom">
+                                <c:choose>
+                                    <c:when test="${not empty user.email}">
+                                        <c:out value="${user.email}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        이메일 미등록
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:if test="${not empty user.loginId}">
+                                    · <c:out value="${user.loginId}"/>
+                                </c:if>
+                            </div>
                             <div class="d-flex gap-2 mt-3">
                                 <div class="stat-box rounded-3 px-3 py-2 text-center">
                                     <div class="text-secondary-custom small">게시글</div>
-                                    <div class="fw-bold text-primary fs-5">12</div>
+                                    <div class="fw-bold text-primary fs-5"><c:out value="${postCount}"/></div>
                                 </div>
                                 <div class="stat-box rounded-3 px-3 py-2 text-center">
                                     <div class="text-secondary-custom small">스크랩</div>
-                                    <div class="fw-bold text-primary fs-5">48</div>
+                                    <div class="fw-bold text-primary fs-5"><c:out value="${scrapCount}"/></div>
                                 </div>
                             </div>
                         </div>
@@ -124,11 +144,11 @@
                         <form class="d-flex flex-column gap-3">
                             <div>
                                 <label class="form-label text-secondary-custom small">이름</label>
-                                <input type="text" class="form-control" value="김한동">
+                                <input type="text" class="form-control" value="${empty user.name ? '' : user.name}" placeholder="이름을 입력하세요">
                             </div>
                             <div>
                                 <label class="form-label text-secondary-custom small">이메일</label>
-                                <input type="email" class="form-control text-secondary-custom" value="21900123@handong.edu" disabled>
+                                <input type="email" class="form-control text-secondary-custom" value="${empty user.email ? '이메일 미등록' : user.email}" disabled>
                             </div>
                             <div class="border-top border-dark my-2"></div>
                             <div>
@@ -152,69 +172,63 @@
                                 <span class="material-symbols-outlined text-primary">history_edu</span>
                                 <h6 class="fw-bold mb-0">내가 쓴 글</h6>
                             </div>
-                            <a href="#" class="text-primary small text-decoration-none fw-bold">전체보기</a>
+                            <a href="${ctx}/posts/manage" class="text-primary small text-decoration-none fw-bold">전체보기</a>
                         </div>
                         <div class="d-flex flex-column gap-2 flex-grow-1">
-                            <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 p-3 rounded-3 bg-dark bg-opacity-25 border border-dark">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex align-items-center gap-2 mb-1">
-                                        <span class="badge bg-warning text-dark">모집 공고</span>
-                                        <span class="text-secondary-custom small">2024.03.15</span>
+                            <c:choose>
+                                <c:when test="${not empty posts}">
+                                    <c:forEach var="post" items="${posts}">
+                                        <c:set var="statusLower" value="${empty post.status ? '' : fn:toLowerCase(post.status)}" />
+                                        <c:set var="statusLabel" value="${empty post.status ? '상태 미지정' : post.status}" />
+                                        <c:choose>
+                                            <c:when test="${fn:contains(statusLower, 'open') or fn:contains(statusLower, '모집')}">
+                                                <c:set var="statusLabel" value="모집중" />
+                                            </c:when>
+                                            <c:when test="${fn:contains(statusLower, 'close') or fn:contains(statusLower, '마감')}">
+                                                <c:set var="statusLabel" value="마감" />
+                                            </c:when>
+                                        </c:choose>
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 p-3 rounded-3 bg-dark bg-opacity-25 border border-dark">
+                                            <div class="flex-grow-1">
+                                                <div class="d-flex align-items-center gap-2 mb-1">
+                                                    <span class="badge bg-warning text-dark"><c:out value="${post.category}" default="카테고리"/></span>
+                                                    <span class="badge bg-dark text-secondary-custom border border-dark"><c:out value="${statusLabel}"/></span>
+                                                </div>
+                                                <div class="fw-semibold">
+                                                    <c:out value="${post.title}" default="제목 없음"/>
+                                                </div>
+                                                <div class="d-flex gap-3 text-secondary-custom small mt-1">
+                                                    <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span><c:out value="${post.viewCount}" default="0"/></span>
+                                                    <c:if test="${not empty post.deadline}">
+                                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">event</span><c:out value="${post.deadline}"/></span>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <a class="btn btn-sm btn-dark text-secondary-custom border-dark" href="${ctx}/posts/detail?id=${post.id}">
+                                                    <span class="material-symbols-outlined">visibility</span>
+                                                </a>
+                                                <form action="${ctx}/posts/delete" method="post" class="m-0">
+                                                    <input type="hidden" name="id" value="${post.id}">
+                                                    <button type="submit" class="btn btn-sm btn-dark text-danger border-dark">
+                                                        <span class="material-symbols-outlined">delete</span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="d-flex flex-column align-items-center justify-content-center text-secondary-custom py-4 border border-dark rounded-3 bg-dark bg-opacity-25">
+                                        <span class="material-symbols-outlined mb-2 text-primary">draft</span>
+                                        아직 작성한 게시글이 없습니다.
+                                        <div class="d-flex gap-2 mt-3">
+                                            <a class="btn btn-primary text-dark fw-bold" href="${ctx}/posts/new">첫 글 작성하기</a>
+                                            <a class="btn btn-outline-light border-dark" href="${ctx}/posts/manage">내 글 관리로 이동</a>
+                                        </div>
                                     </div>
-                                    <div class="fw-semibold">2024-1학기 창업팀 프론트엔드 개발자 모집합니다!</div>
-                                    <div class="d-flex gap-3 text-secondary-custom small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>128</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>12</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-sm btn-dark text-secondary-custom border-dark"><span class="material-symbols-outlined">edit</span></button>
-                                    <button class="btn btn-sm btn-dark text-danger border-dark"><span class="material-symbols-outlined">delete</span></button>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 p-3 rounded-3 bg-dark bg-opacity-25 border border-dark">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex align-items-center gap-2 mb-1">
-                                        <span class="badge bg-primary text-dark">정보 공유</span>
-                                        <span class="text-secondary-custom small">2024.03.10</span>
-                                    </div>
-                                    <div class="fw-semibold">C언어 기초 학습 자료 공유합니다 (중간고사 대비)</div>
-                                    <div class="d-flex gap-3 text-secondary-custom small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>450</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>56</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-sm btn-dark text-secondary-custom border-dark"><span class="material-symbols-outlined">edit</span></button>
-                                    <button class="btn btn-sm btn-dark text-danger border-dark"><span class="material-symbols-outlined">delete</span></button>
-                                </div>
-                            </div>
-                            <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 p-3 rounded-3 bg-dark bg-opacity-25 border border-dark">
-                                <div class="flex-grow-1">
-                                    <div class="d-flex align-items-center gap-2 mb-1">
-                                        <span class="badge bg-info text-dark">커뮤니티</span>
-                                        <span class="text-secondary-custom small">2024.03.01</span>
-                                    </div>
-                                    <div class="fw-semibold">학식 메뉴 추천 좀 해주세요... 오늘 뭐 먹지</div>
-                                    <div class="d-flex gap-3 text-secondary-custom small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>89</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>3</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-sm btn-dark text-secondary-custom border-dark"><span class="material-symbols-outlined">edit</span></button>
-                                    <button class="btn btn-sm btn-dark text-danger border-dark"><span class="material-symbols-outlined">delete</span></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center mt-3">
-                            <nav class="d-flex gap-2">
-                                <button class="btn btn-sm btn-dark text-secondary-custom border-dark"><span class="material-symbols-outlined" style="font-size:16px;">chevron_left</span></button>
-                                <button class="btn btn-sm btn-primary text-dark fw-bold">1</button>
-                                <button class="btn btn-sm btn-dark text-secondary-custom border-dark">2</button>
-                                <button class="btn btn-sm btn-dark text-secondary-custom border-dark">3</button>
-                                <button class="btn btn-sm btn-dark text-secondary-custom border-dark"><span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span></button>
-                            </nav>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                 </div>

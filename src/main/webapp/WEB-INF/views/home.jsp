@@ -112,6 +112,7 @@
 </head>
 <body>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<c:set var="user" value="${sessionScope.user}" />
 <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-lg">
         <div class="d-flex align-items-center text-white fw-bold fs-5">
@@ -128,10 +129,25 @@
                 <li class="nav-item"><a class="nav-link" href="${ctx}/list">팀 찾기</a></li>
                 <li class="nav-item"><a class="nav-link" href="#footer">문의하기</a></li>
             </ul>
-            <div class="d-flex gap-2">
-                <a class="btn btn-primary px-3" href="${ctx}/auth/signup">회원가입</a>
-                <a class="btn btn-outline-light px-3" href="${ctx}/auth/login">로그인</a>
-            </div>
+            <c:choose>
+                <c:when test="${not empty user}">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="text-secondary-custom small d-none d-md-inline">안녕하세요, <span class="text-white fw-semibold"><c:out value="${user.name}" default="회원"/></span>님</span>
+                        <a class="btn btn-outline-light px-3" href="${ctx}/posts/manage">내 글 관리</a>
+                        <a class="btn btn-primary px-3 text-dark fw-bold" href="${ctx}/posts/new">글쓰기</a>
+                        <a class="btn btn-outline-light border-0 px-3" href="${ctx}/auth/profile" aria-label="프로필">
+                            <span class="material-symbols-outlined">account_circle</span>
+                        </a>
+                        <a class="btn btn-outline-light px-3" href="${ctx}/auth/logout">로그아웃</a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-primary px-3" href="${ctx}/auth/signup">회원가입</a>
+                        <a class="btn btn-outline-light px-3" href="${ctx}/auth/login">로그인</a>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
 </nav>
@@ -149,8 +165,17 @@
                     동아리, 학회, 프로젝트 팀원을 찾는 가장 쉬운 방법입니다.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
-                    <a class="btn btn-primary btn-lg px-4" href="${ctx}/auth/signup">시작하기</a>
-                    <a class="btn btn-outline-light btn-lg px-4" href="${ctx}/auth/login">로그인</a>
+                    <c:choose>
+                        <c:when test="${not empty user}">
+                            <a class="btn btn-primary btn-lg px-4" href="${ctx}/list">모집글 둘러보기</a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="${ctx}/posts/manage">내 글 관리</a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="${ctx}/posts/new">글쓰기</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="btn btn-primary btn-lg px-4" href="${ctx}/auth/signup">시작하기</a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="${ctx}/auth/login">로그인</a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -261,7 +286,17 @@
             <p class="text-secondary-custom fs-6 mb-4">
                 한동대학교 학우들과 함께 성장하는 즐거움, Hanpick에서 경험해보세요.
             </p>
-            <a class="btn btn-primary btn-lg px-4" href="${ctx}/auth/signup">무료로 회원가입</a>
+            <c:choose>
+                <c:when test="${not empty user}">
+                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                        <a class="btn btn-primary btn-lg px-4" href="${ctx}/list">모집글 둘러보기</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="${ctx}/posts/manage">내 글 관리</a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <a class="btn btn-primary btn-lg px-4" href="${ctx}/auth/signup">무료로 회원가입</a>
+                </c:otherwise>
+            </c:choose>
         </div>
     </section>
 </main>

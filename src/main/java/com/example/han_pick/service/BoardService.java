@@ -22,4 +22,6 @@ public interface BoardService {
     List<BoardVO> findByCategory(String category);
 
     List<BoardVO> findByStatus(String status);
+
+    List<BoardVO> findByAuthor(String authorId);
 }

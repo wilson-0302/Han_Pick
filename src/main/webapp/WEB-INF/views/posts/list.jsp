@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Hanpick - Find Your Opportunity</title>
+    <title>Hanpick - 모집 둘러보기</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet"/>
@@ -105,18 +105,18 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navMenu">
                 <ul class="navbar-nav gap-lg-4">
-                    <li class="nav-item"><a class="nav-link" href="${ctx}/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="${ctx}/list">Recruitment</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">My Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/">홈</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="${ctx}/list">모집 공고</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">내 글 관리</a></li>
                 </ul>
             </div>
             <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-outline-light border-0 px-3">
+                <button class="btn btn-outline-light border-0 px-3" type="button">
                     <span class="material-symbols-outlined">notifications</span>
                 </button>
-                <button class="btn btn-outline-light border-0 px-3">
+                <a class="btn btn-outline-light border-0 px-3" href="${ctx}/auth/profile" aria-label="프로필">
                     <span class="material-symbols-outlined">account_circle</span>
-                </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -124,19 +124,21 @@
     <!-- Hero -->
     <section class="w-100 border-bottom border-dark" style="background:#132026;">
         <div class="container-lg py-5 d-flex flex-column align-items-center gap-4">
-            <h1 class="text-white text-center fw-bold display-6 mb-2">Find Your <span class="text-primary">Opportunity</span></h1>
-            <div class="w-100" style="max-width:720px;">
+            <h1 class="text-white text-center fw-bold display-6 mb-2">한동의 <span class="text-primary">모집 정보</span>를 한눈에</h1>
+            <form class="w-100" style="max-width:720px;" method="get" action="${ctx}/list">
                 <div class="position-relative">
                     <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary">search</span>
-                    <input type="text" class="form-control form-control-lg search-input ps-5" placeholder="Search for project, team, or contest...">
+                    <input type="text" name="q" value="${fn:escapeXml(keyword)}" class="form-control form-control-lg search-input ps-5" placeholder="프로젝트, 팀, 공모전을 검색해보세요">
+                    <input type="hidden" name="category" value="${fn:escapeXml(selectedCategory)}"/>
+                    <input type="hidden" name="sort" value="${fn:escapeXml(sort)}"/>
                 </div>
-            </div>
+            </form>
             <div class="d-flex flex-wrap justify-content-center gap-2">
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#FrontEnd</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#Design</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#SpringCamps</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#Freshman</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#GlobalTeam</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#프론트엔드</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#디자인</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#공모전</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#새내기환영</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#글로벌팀</button>
             </div>
         </div>
     </section>
@@ -148,36 +150,36 @@
             <aside class="col-12 col-lg-3">
                 <div class="filter-card rounded-3 p-3 mb-3">
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h5 class="text-white mb-0">Category</h5>
+                        <h5 class="text-white mb-0">카테고리</h5>
                     </div>
                     <div class="d-flex flex-column gap-2">
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-all" checked>
-                            <label class="form-check-label text-secondary" for="cat-all">All Posts</label>
+                            <label class="form-check-label text-secondary" for="cat-all">전체 게시글</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-project">
-                            <label class="form-check-label text-secondary" for="cat-project">Project Recruitment</label>
+                            <label class="form-check-label text-secondary" for="cat-project">프로젝트 모집</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-competition">
-                            <label class="form-check-label text-secondary" for="cat-competition">Competitions</label>
+                            <label class="form-check-label text-secondary" for="cat-competition">공모전</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-study">
-                            <label class="form-check-label text-secondary" for="cat-study">Study Groups</label>
+                            <label class="form-check-label text-secondary" for="cat-study">스터디</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-club">
-                            <label class="form-check-label text-secondary" for="cat-club">Clubs</label>
+                            <label class="form-check-label text-secondary" for="cat-club">동아리</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="filter-card rounded-3 p-3 mb-3">
-                    <h5 class="text-white mb-3">Status</h5>
+                    <h5 class="text-white mb-3">상태</h5>
                     <div class="d-flex align-items-center justify-content-between px-3 py-2 rounded-3 border border-dark">
-                        <span class="text-secondary small">Recruiting Only</span>
+                        <span class="text-secondary small">모집중만 보기</span>
                         <div class="form-check form-switch m-0">
                             <input class="form-check-input" type="checkbox" id="statusToggle" checked>
                         </div>
@@ -185,12 +187,12 @@
                 </div>
 
                 <div class="filter-card rounded-3 p-3">
-                    <h5 class="text-white mb-3">Position</h5>
+                    <h5 class="text-white mb-3">포지션</h5>
                     <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-dark border border-secondary text-secondary">Developer</span>
-                        <span class="badge bg-dark border border-secondary text-secondary">Designer</span>
+                        <span class="badge bg-dark border border-secondary text-secondary">개발</span>
+                        <span class="badge bg-dark border border-secondary text-secondary">디자인</span>
                         <span class="badge bg-dark border border-secondary text-secondary">PM</span>
-                        <span class="badge bg-dark border border-secondary text-secondary">Planner</span>
+                        <span class="badge bg-dark border border-secondary text-secondary">기획</span>
                     </div>
                 </div>
             </aside>
@@ -199,6 +201,24 @@
             <section class="col-12 col-lg-9">
                 <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
                     <p class="text-secondary small mb-0">총 <span class="fw-bold text-white"><c:out value="${fn:length(posts)}"/></span>건</p>
+                    <div class="d-flex gap-2">
+                        <form method="get" action="${ctx}/list" class="d-flex gap-2">
+                            <input type="hidden" name="q" value="${fn:escapeXml(keyword)}"/>
+                            <select name="category" class="form-select form-select-sm bg-dark text-white border-dark" onchange="this.form.submit()">
+                                <option value="">전체 카테고리</option>
+                                <option value="동아리" ${selectedCategory == '동아리' ? 'selected' : ''}>동아리</option>
+                                <option value="공모전" ${selectedCategory == '공모전' ? 'selected' : ''}>공모전</option>
+                                <option value="대외활동" ${selectedCategory == '대외활동' ? 'selected' : ''}>대외활동</option>
+                                <option value="스터디" ${selectedCategory == '스터디' ? 'selected' : ''}>스터디</option>
+                                <option value="프로젝트" ${selectedCategory == '프로젝트' ? 'selected' : ''}>프로젝트</option>
+                            </select>
+                            <input type="hidden" name="sort" value="${fn:escapeXml(sort)}"/>
+                        </form>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="정렬">
+                            <a class="btn ${sort == 'latest' || empty sort ? 'btn-primary text-dark' : 'btn-dark text-secondary'}" href="${ctx}/list?sort=latest&category=${fn:escapeXml(selectedCategory)}&q=${fn:escapeXml(keyword)}">최신순</a>
+                            <a class="btn ${sort == 'popular' ? 'btn-primary text-dark' : 'btn-dark text-secondary'}" href="${ctx}/list?sort=popular&category=${fn:escapeXml(selectedCategory)}&q=${fn:escapeXml(keyword)}">인기순</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row g-3">
@@ -211,6 +231,16 @@
                     </c:if>
 
                     <c:forEach var="post" items="${posts}">
+                        <c:set var="statusLower" value="${empty post.status ? '' : fn:toLowerCase(post.status)}" />
+                        <c:set var="statusLabel" value="${post.status}" />
+                        <c:choose>
+                            <c:when test="${fn:contains(statusLower, 'open') or fn:contains(statusLower, '모집')}">
+                                <c:set var="statusLabel" value="모집중" />
+                            </c:when>
+                            <c:when test="${fn:contains(statusLower, 'close') or fn:contains(statusLower, '마감')}">
+                                <c:set var="statusLabel" value="마감" />
+                            </c:when>
+                        </c:choose>
                         <div class="col-12 col-md-6 col-xl-4">
                             <a class="text-decoration-none" href="${ctx}/posts/detail?id=${post.id}">
                                 <div class="card-post rounded-3 h-100 overflow-hidden">
@@ -232,7 +262,7 @@
                                     <div class="p-3 d-flex flex-column h-100">
                                         <div class="d-flex align-items-center gap-2 mb-2">
                                             <span class="badge bg-primary text-dark badge-tag"><c:out value="${post.category}"/></span>
-                                            <span class="badge bg-success bg-opacity-75 text-white badge-tag"><c:out value="${post.status}"/></span>
+                                            <span class="badge bg-success bg-opacity-75 text-white badge-tag"><c:out value="${statusLabel}"/></span>
                                         </div>
                                         <h5 class="fw-bold text-white mb-2"><c:out value="${post.title}"/></h5>
                                         <p class="text-secondary small mb-3 flex-grow-1"><c:out value="${post.content}"/></p>
@@ -254,7 +284,7 @@
 
                 <!-- Load more -->
                 <div class="d-flex justify-content-center mt-4">
-                    <button class="btn btn-dark border border-dark px-4 py-2 text-secondary fw-bold">Load More Opportunities</button>
+                    <button class="btn btn-dark border border-dark px-4 py-2 text-secondary fw-bold">더 많은 모집글 보기</button>
                 </div>
             </section>
         </div>
@@ -262,9 +292,9 @@
 
     <!-- Floating Action Button -->
     <div class="position-fixed bottom-0 end-0 m-4">
-        <button class="floating-btn border-0 d-flex align-items-center justify-content-center">
+        <a class="floating-btn border-0 d-flex align-items-center justify-content-center text-decoration-none" href="${ctx}/posts/new" aria-label="게시글 작성">
             <span class="material-symbols-outlined">edit</span>
-        </button>
+        </a>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

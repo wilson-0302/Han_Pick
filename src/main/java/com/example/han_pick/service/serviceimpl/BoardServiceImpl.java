@@ -69,4 +69,9 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardVO> findByStatus(String status) {
         return boardDAO.findByStatus(status);
     }
+
+    @Override
+    public List<BoardVO> findByAuthor(String authorId) {
+        return boardDAO.findByAuthor(authorId);
+    }
 }

@@ -91,4 +91,12 @@
         ORDER BY id DESC
     </select>
 
+    <!-- 작성자별 조회 -->
+    <select id="findByAuthor" parameterType="string" resultMap="BoardResultMap">
+        SELECT *
+        FROM posts
+        WHERE author_id = #{authorId}
+        ORDER BY id DESC
+    </select>
+
 </mapper>

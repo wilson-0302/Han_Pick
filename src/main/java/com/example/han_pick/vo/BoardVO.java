@@ -2,6 +2,7 @@ package com.example.han_pick.vo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class BoardVO {
     // 게시글 기본 정보
@@ -9,6 +10,7 @@ public class BoardVO {
     private String title;
     private String category; // 동아리/공모전/대외활동/스터디/프로젝트
     private Integer headcount; // 모집 인원(미정은 null)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
     private String contactLink; // 지원 링크/연락처
     private String content;

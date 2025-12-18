@@ -23,4 +23,6 @@ public interface BoardDAO {
     List<BoardVO> findByCategory(String category);
     // 상태별 조회
     List<BoardVO> findByStatus(String status);
+    // 작성자별 조회
+    List<BoardVO> findByAuthor(String authorId);
 }
