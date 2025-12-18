@@ -1,10 +1,13 @@
 package com.example.han_pick.controller;
 
 import com.example.han_pick.service.LoginService;
+import com.example.han_pick.service.BoardService;
 import com.example.han_pick.vo.LoginVO;
+import com.example.han_pick.vo.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,8 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private BoardService boardService;
 
     @GetMapping("/login")
     String login_form() {
@@ -67,6 +72,23 @@ public class LoginController {
         } catch (DuplicateKeyException e) {
             return "redirect:/auth/signup?msg=that is already in use";
         }
+    }
+
+    @GetMapping("/profile")
+    public String profile(HttpSession session, Model model) {
+        LoginVO user = (LoginVO) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/auth/login";
+        }
+        model.addAttribute("user", user);
+        model.addAttribute("posts", boardService.findByAuthor(user.getLoginId()));
+        return "auth/profile";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 
     private boolean isBlank(String s) {

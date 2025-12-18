@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 게시판(posts) CRUD 및 조회 매퍼 -->
+<mapper namespace="com.example.han_pick.dao.BoardDAO">
+
+    <!-- posts 테이블 컬럼과 BoardVO 매핑 -->
+    <resultMap id="BoardResultMap" type="com.example.han_pick.vo.BoardVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="category" column="category"/>
+        <result property="headcount" column="headcount"/>
+        <result property="deadline" column="deadline"/>
+        <result property="contactLink" column="contact_link"/>
+        <result property="content" column="content"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="authorId" column="author_id"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="status" column="status"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    </resultMap>
+
+    <!-- 전체 목록 -->
+    <select id="findAll" resultMap="BoardResultMap">
+        SELECT *
+        FROM posts
+        ORDER BY id DESC
+    </select>
+
+    <!-- 단건 조회 -->
+    <select id="findById" parameterType="long" resultMap="BoardResultMap">
+        SELECT *
+        FROM posts
+        WHERE id = #{id}
+    </select>
+
+    <!-- 신규 등록 -->
+    <insert id="insert" parameterType="com.example.han_pick.vo.BoardVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO posts (
+            title, category, headcount, deadline, contact_link, content,
+            image_url, author_id, view_count, status
+        ) VALUES (
+            #{title}, #{category}, #{headcount}, #{deadline}, #{contactLink}, #{content},
+            #{imageUrl}, #{authorId}, #{viewCount}, #{status}
+        )
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="update" parameterType="com.example.han_pick.vo.BoardVO">
+        UPDATE posts
+        SET title = #{title},
+            category = #{category},
+            headcount = #{headcount},
+            deadline = #{deadline},
+            contact_link = #{contactLink},
+            content = #{content},
+            image_url = #{imageUrl},
+            status = #{status},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM posts
+        WHERE id = #{id}
+    </delete>
+
+    <!-- 조회수 증가 -->
+    <update id="increaseViewCount" parameterType="long">
+        UPDATE posts
+        SET view_count = view_count + 1
+        WHERE id = #{id}
+    </update>
+
+    <!-- 카테고리별 조회 -->
+    <select id="findByCategory" parameterType="string" resultMap="BoardResultMap">
+        SELECT *
+        FROM posts
+        WHERE category = #{category}
+        ORDER BY id DESC
+    </select>
+
+    <!-- 상태별 조회 -->
+    <select id="findByStatus" parameterType="string" resultMap="BoardResultMap">
+        SELECT *
+        FROM posts
+        WHERE status = #{status}
+        ORDER BY id DESC
+    </select>
+
+    <!-- 작성자별 조회 -->
+    <select id="findByAuthor" parameterType="string" resultMap="BoardResultMap">
+        SELECT *
+        FROM posts
+        WHERE author_id = #{authorId}
+        ORDER BY id DESC
+    </select>
+
+</mapper>

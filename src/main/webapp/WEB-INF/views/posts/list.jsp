@@ -1,11 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Hanpick - Find Your Opportunity</title>
+    <title>Hanpick - 모집 둘러보기</title>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet"/>
@@ -104,18 +105,18 @@
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navMenu">
                 <ul class="navbar-nav gap-lg-4">
-                    <li class="nav-item"><a class="nav-link" href="${ctx}/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="${ctx}/list">Recruitment</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">My Posts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/">홈</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="${ctx}/list">모집 공고</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${ctx}/posts/manage">내 글 관리</a></li>
                 </ul>
             </div>
             <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-outline-light border-0 px-3">
+                <button class="btn btn-outline-light border-0 px-3" type="button">
                     <span class="material-symbols-outlined">notifications</span>
                 </button>
-                <button class="btn btn-outline-light border-0 px-3">
+                <a class="btn btn-outline-light border-0 px-3" href="${ctx}/auth/profile" aria-label="프로필">
                     <span class="material-symbols-outlined">account_circle</span>
-                </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -123,19 +124,21 @@
     <!-- Hero -->
     <section class="w-100 border-bottom border-dark" style="background:#132026;">
         <div class="container-lg py-5 d-flex flex-column align-items-center gap-4">
-            <h1 class="text-white text-center fw-bold display-6 mb-2">Find Your <span class="text-primary">Opportunity</span></h1>
-            <div class="w-100" style="max-width:720px;">
+            <h1 class="text-white text-center fw-bold display-6 mb-2">한동의 <span class="text-primary">모집 정보</span>를 한눈에</h1>
+            <form class="w-100" style="max-width:720px;" method="get" action="${ctx}/list">
                 <div class="position-relative">
                     <span class="material-symbols-outlined position-absolute top-50 start-0 translate-middle-y ms-3 text-secondary">search</span>
-                    <input type="text" class="form-control form-control-lg search-input ps-5" placeholder="Search for project, team, or contest...">
+                    <input type="text" name="q" value="${fn:escapeXml(keyword)}" class="form-control form-control-lg search-input ps-5" placeholder="프로젝트, 팀, 공모전을 검색해보세요">
+                    <input type="hidden" name="category" value="${fn:escapeXml(selectedCategory)}"/>
+                    <input type="hidden" name="sort" value="${fn:escapeXml(sort)}"/>
                 </div>
-            </div>
+            </form>
             <div class="d-flex flex-wrap justify-content-center gap-2">
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#FrontEnd</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#Design</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#SpringCamps</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#Freshman</button>
-                <button class="btn chip-btn btn-sm rounded-pill px-3">#GlobalTeam</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#프론트엔드</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#디자인</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#공모전</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#새내기환영</button>
+                <button class="btn chip-btn btn-sm rounded-pill px-3">#글로벌팀</button>
             </div>
         </div>
     </section>
@@ -147,36 +150,36 @@
             <aside class="col-12 col-lg-3">
                 <div class="filter-card rounded-3 p-3 mb-3">
                     <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h5 class="text-white mb-0">Category</h5>
+                        <h5 class="text-white mb-0">카테고리</h5>
                     </div>
                     <div class="d-flex flex-column gap-2">
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-all" checked>
-                            <label class="form-check-label text-secondary" for="cat-all">All Posts</label>
+                            <label class="form-check-label text-secondary" for="cat-all">전체 게시글</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-project">
-                            <label class="form-check-label text-secondary" for="cat-project">Project Recruitment</label>
+                            <label class="form-check-label text-secondary" for="cat-project">프로젝트 모집</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-competition">
-                            <label class="form-check-label text-secondary" for="cat-competition">Competitions</label>
+                            <label class="form-check-label text-secondary" for="cat-competition">공모전</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-study">
-                            <label class="form-check-label text-secondary" for="cat-study">Study Groups</label>
+                            <label class="form-check-label text-secondary" for="cat-study">스터디</label>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-club">
-                            <label class="form-check-label text-secondary" for="cat-club">Clubs</label>
+                            <label class="form-check-label text-secondary" for="cat-club">동아리</label>
                         </div>
                     </div>
                 </div>
 
                 <div class="filter-card rounded-3 p-3 mb-3">
-                    <h5 class="text-white mb-3">Status</h5>
+                    <h5 class="text-white mb-3">상태</h5>
                     <div class="d-flex align-items-center justify-content-between px-3 py-2 rounded-3 border border-dark">
-                        <span class="text-secondary small">Recruiting Only</span>
+                        <span class="text-secondary small">모집중만 보기</span>
                         <div class="form-check form-switch m-0">
                             <input class="form-check-input" type="checkbox" id="statusToggle" checked>
                         </div>
@@ -184,12 +187,12 @@
                 </div>
 
                 <div class="filter-card rounded-3 p-3">
-                    <h5 class="text-white mb-3">Position</h5>
+                    <h5 class="text-white mb-3">포지션</h5>
                     <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-dark border border-secondary text-secondary">Developer</span>
-                        <span class="badge bg-dark border border-secondary text-secondary">Designer</span>
+                        <span class="badge bg-dark border border-secondary text-secondary">개발</span>
+                        <span class="badge bg-dark border border-secondary text-secondary">디자인</span>
                         <span class="badge bg-dark border border-secondary text-secondary">PM</span>
-                        <span class="badge bg-dark border border-secondary text-secondary">Planner</span>
+                        <span class="badge bg-dark border border-secondary text-secondary">기획</span>
                     </div>
                 </div>
             </aside>
@@ -197,187 +200,91 @@
             <!-- Content -->
             <section class="col-12 col-lg-9">
                 <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
-                    <p class="text-secondary small mb-0">Showing <span class="fw-bold text-white">12</span> active opportunities</p>
-                    <div class="sort-bar rounded-3 p-1 d-flex gap-1">
-                        <button class="btn btn-primary btn-sm fw-bold">Latest</button>
-                        <button class="btn btn-dark btn-sm text-secondary border-0">Closing Soon</button>
-                        <button class="btn btn-dark btn-sm text-secondary border-0">Popular</button>
+                    <p class="text-secondary small mb-0">총 <span class="fw-bold text-white"><c:out value="${fn:length(posts)}"/></span>건</p>
+                    <div class="d-flex gap-2">
+                        <form method="get" action="${ctx}/list" class="d-flex gap-2">
+                            <input type="hidden" name="q" value="${fn:escapeXml(keyword)}"/>
+                            <select name="category" class="form-select form-select-sm bg-dark text-white border-dark" onchange="this.form.submit()">
+                                <option value="">전체 카테고리</option>
+                                <option value="동아리" ${selectedCategory == '동아리' ? 'selected' : ''}>동아리</option>
+                                <option value="공모전" ${selectedCategory == '공모전' ? 'selected' : ''}>공모전</option>
+                                <option value="대외활동" ${selectedCategory == '대외활동' ? 'selected' : ''}>대외활동</option>
+                                <option value="스터디" ${selectedCategory == '스터디' ? 'selected' : ''}>스터디</option>
+                                <option value="프로젝트" ${selectedCategory == '프로젝트' ? 'selected' : ''}>프로젝트</option>
+                            </select>
+                            <input type="hidden" name="sort" value="${fn:escapeXml(sort)}"/>
+                        </form>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="정렬">
+                            <a class="btn ${sort == 'latest' || empty sort ? 'btn-primary text-dark' : 'btn-dark text-secondary'}" href="${ctx}/list?sort=latest&category=${fn:escapeXml(selectedCategory)}&q=${fn:escapeXml(keyword)}">최신순</a>
+                            <a class="btn ${sort == 'popular' ? 'btn-primary text-dark' : 'btn-dark text-secondary'}" href="${ctx}/list?sort=popular&category=${fn:escapeXml(selectedCategory)}&q=${fn:escapeXml(keyword)}">인기순</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row g-3">
-                    <!-- Card 1 -->
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card-post rounded-3 h-100 overflow-hidden">
-                            <div class="position-relative" style="height: 180px;">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcXr7RZ9oO7xjqY1-AVK-H1nxF_GAvvzQ-VXjB9OkFiaNYR0UNFJt8rpa9VKGkKhCkrk345UcT7-UTw1Wj7tQdp_Xng1FJM7VB0ktwLxB6CTho2yLTpM0fao97shCryeT3dTf-Z3wZNzQqW17UqWF-ZU0OT8eSCLVKcU4lMX2KTUMnOaXkk_58VbqTL3eGuy1xEOYGHDsg2ZmfXI8XAoFUycTKkjxIpwc7IOZ1H1QvsSpHSMFmfKmntp5aRlgKZeqfvViOmhMYYh4o" alt="Abstract code" class="w-100 h-100" style="object-fit: cover;">
-                                <span class="badge text-bg-primary position-absolute top-0 end-0 m-2 fw-bold">D-3</span>
-                            </div>
-                            <div class="p-3 d-flex flex-column h-100">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge bg-primary text-dark badge-tag">Project</span>
-                                    <span class="small text-secondary">#React #NextJS</span>
-                                </div>
-                                <h5 class="fw-bold text-white mb-2">Front-end Developer needed for App Challenge</h5>
-                                <p class="text-secondary small mb-3 flex-grow-1">We are looking for a passionate developer to join our team for the upcoming Global App Challenge. Experience with React is preferred.</p>
-                                <div class="d-flex align-items-center justify-content-between border-top border-dark pt-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle bg-gradient text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; background: linear-gradient(135deg, #8b5cf6, #3b82f6); font-size: 11px;">K</div>
-                                        <span class="text-secondary small">Kim Min-su</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 text-secondary small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>142</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>12</span>
-                                    </div>
-                                </div>
+                    <c:if test="${empty posts}">
+                        <div class="col-12">
+                            <div class="card-post rounded-3 p-4 text-center text-secondary">
+                                게시글이 없습니다. 첫 글을 작성해보세요.
                             </div>
                         </div>
-                    </div>
+                    </c:if>
 
-                    <!-- Card 2 -->
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card-post rounded-3 h-100 overflow-hidden">
-                            <div class="position-relative" style="height: 180px;">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpa0e4s-wbmVcH4UwBbl-s5la9KUifbQaCi7xAWeQssKaHUthAuhHqwADTyTd5pYPFc2Pi04XgdbwZjydLkHFRRv7yIlH2gYisUfbqpm6QMgq5d7pdMo2ArkL6-tmgCCUT9GwPU7_nhBP9sBPBYO2EagjaH6aCbYxqEy9cfHHoPiRjgw3JBP7UojfN6H_2AoyFjwoPHWe4qMogTLfYz7GXwa0HTA1_CSTA-O7XhcDKZaqhJcaTc9YVUCXnErrvT53bS8VK-yv5AUwJ" alt="Team work" class="w-100 h-100" style="object-fit: cover;">
-                                <span class="badge text-bg-danger position-absolute top-0 end-0 m-2 fw-bold">Today</span>
-                            </div>
-                            <div class="p-3 d-flex flex-column h-100">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge bg-danger bg-opacity-75 text-white badge-tag">Competition</span>
-                                    <span class="small text-secondary">#Design #UX/UI</span>
-                                </div>
-                                <h5 class="fw-bold text-white mb-2">UX/UI Designer for H-Star Contest</h5>
-                                <p class="text-secondary small mb-3 flex-grow-1">Need a designer who can handle Figma prototyping. Our team has 2 developers and 1 PM. Let's win together!</p>
-                                <div class="d-flex align-items-center justify-content-between border-top border-dark pt-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; background: linear-gradient(135deg, #22c55e, #14b8a6); font-size: 11px;">L</div>
-                                        <span class="text-secondary small">Lee Ji-won</span>
+                    <c:forEach var="post" items="${posts}">
+                        <c:set var="statusLower" value="${empty post.status ? '' : fn:toLowerCase(post.status)}" />
+                        <c:set var="statusLabel" value="${post.status}" />
+                        <c:choose>
+                            <c:when test="${fn:contains(statusLower, 'open') or fn:contains(statusLower, '모집')}">
+                                <c:set var="statusLabel" value="모집중" />
+                            </c:when>
+                            <c:when test="${fn:contains(statusLower, 'close') or fn:contains(statusLower, '마감')}">
+                                <c:set var="statusLabel" value="마감" />
+                            </c:when>
+                        </c:choose>
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <a class="text-decoration-none" href="${ctx}/posts/detail?id=${post.id}">
+                                <div class="card-post rounded-3 h-100 overflow-hidden">
+                                    <div class="position-relative" style="height: 180px; background:#1a2a30;">
+                                        <c:choose>
+                                            <c:when test="${not empty post.imageUrl}">
+                                                <img src="${post.imageUrl}" alt="post thumbnail" class="w-100 h-100" style="object-fit: cover;">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="w-100 h-100 d-flex align-items-center justify-content-center text-secondary">
+                                                    <span class="material-symbols-outlined">image_not_supported</span>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:if test="${not empty post.deadline}">
+                                            <span class="badge text-bg-primary position-absolute top-0 end-0 m-2 fw-bold"><c:out value="${post.deadline}"/></span>
+                                        </c:if>
                                     </div>
-                                    <div class="d-flex align-items-center gap-2 text-secondary small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>89</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>24</span>
+                                    <div class="p-3 d-flex flex-column h-100">
+                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                            <span class="badge bg-primary text-dark badge-tag"><c:out value="${post.category}"/></span>
+                                            <span class="badge bg-success bg-opacity-75 text-white badge-tag"><c:out value="${statusLabel}"/></span>
+                                        </div>
+                                        <h5 class="fw-bold text-white mb-2"><c:out value="${post.title}"/></h5>
+                                        <p class="text-secondary small mb-3 flex-grow-1"><c:out value="${post.content}"/></p>
+                                        <div class="d-flex align-items-center justify-content-between border-top border-dark pt-2">
+                                            <div class="text-secondary small">
+                                                <span class="material-symbols-outlined align-middle" style="font-size:16px;">person</span>
+                                                <c:out value="${post.authorId}"/>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-2 text-secondary small">
+                                                <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span><c:out value="${post.viewCount}"/></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card-post rounded-3 h-100 overflow-hidden">
-                            <div class="position-relative" style="height: 180px;">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAGXs5aQfSuR_rNX2hz-BgvvaTyj-5ggNoS2ExQQeYKFGf5LADYuZcM1KMk5fgSEWq1wYQnf2uiskt1ABJZY1oX9yMMEaBW3EmNIU1dnKU0odNfwks5Gzdy4_grgpPb6lT1dZMO29tx9Ve2R_R2lCYaE00G17kqVqdTtwfwjjBadlrtKx9WHYXZ4eJ8zQvmBNa5cudAnrd0EHr6emtBhgtAnyO3UshIAw2nCizEhGvNKV7o6XPbw-c5HTCBpg4n6rk4MgBz_ts2uM7" alt="Friends" class="w-100 h-100" style="object-fit: cover;">
-                                <span class="badge text-bg-success position-absolute top-0 end-0 m-2 fw-bold">Open</span>
-                            </div>
-                            <div class="p-3 d-flex flex-column h-100">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge bg-success bg-opacity-75 text-white badge-tag">Study</span>
-                                    <span class="small text-secondary">#Algorithm #Python</span>
-                                </div>
-                                <h5 class="fw-bold text-white mb-2">Algorithm Study Group (Beginner Friendly)</h5>
-                                <p class="text-secondary small mb-3 flex-grow-1">Starting from basics. We meet every Tuesday evening. Python preferred but any language welcome.</p>
-                                <div class="d-flex align-items-center justify-content-between border-top border-dark pt-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; background: linear-gradient(135deg, #f97316, #ef4444); font-size: 11px;">P</div>
-                                        <span class="text-secondary small">Park Jun</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 text-secondary small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>210</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>45</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card-post rounded-3 h-100 overflow-hidden">
-                            <div class="position-relative" style="height: 180px;">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOjqpQjV3CCEAuDZyH5RFZ3S2iJ6ycU0Clm2NvTJPpPUDHQnYQuAy40uunqEdgY_BU34mliulskjTnGEsBrCu4TUIfv8q9FwMpWx6vu-JeRwqonZ65-rKxliFQZUoYxDGf6HDr0TaN0S5Z55Qa6tbDJiqTOPsb6Ui56c9CEWF5rCR9TXJJgPu4e-0Jy9FzjTUHTCyeixVbn1FhPlTWvGZvdFwOzy8y3nIiIZsJMAec4O273ONuJilrFRQmb1kH2QzbAk1wKjFi3AwA" alt="Campus" class="w-100 h-100" style="object-fit: cover;">
-                                <span class="badge text-bg-secondary position-absolute top-0 end-0 m-2 fw-bold">D-10</span>
-                            </div>
-                            <div class="p-3 d-flex flex-column h-100">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge bg-purple text-white badge-tag">Club</span>
-                                    <span class="small text-secondary">#Music #Band</span>
-                                </div>
-                                <h5 class="fw-bold text-white mb-2">Keyboard player for 'Blue Sound'</h5>
-                                <p class="text-secondary small mb-3 flex-grow-1">We are looking for a keyboardist to perform at the upcoming festival. Must be available for weekly practice.</p>
-                                <div class="d-flex align-items-center justify-content-between border-top border-dark pt-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; background: linear-gradient(135deg, #6366f1, #8b5cf6); font-size: 11px;">C</div>
-                                        <span class="text-secondary small">Choi Soo</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 text-secondary small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>56</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>8</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 5 -->
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card-post rounded-3 h-100 overflow-hidden">
-                            <div class="position-relative" style="height: 180px;">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUwXApwoiImvXEf2v2vavot049odNjJdE687XkmSW1isHz2PWjbBHuNH7qqpPOuTT0azVTzgsX6oCJMqoHIc2G_oE9bbLJwcFzE19ixvT0Zc1KMtIz74OOtdt72ty_-m4-sGl2k5wkZ7afBbxsmssMEYQzFbUqN_51_aksSX-FCauaGT8ACnsNBBsKEyu1vlPlF-CjI1zuKdNBnZ90UA4ZTOSwppkz0Q1jvIRGSgNdCU4mExlXSD7rJm1F-fSA-dN4qryt0Yi7DIDZ" alt="Discussion" class="w-100 h-100" style="object-fit: cover;">
-                                <span class="badge text-bg-primary position-absolute top-0 end-0 m-2 fw-bold">D-7</span>
-                            </div>
-                            <div class="p-3 d-flex flex-column h-100">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge bg-primary text-dark badge-tag">Project</span>
-                                    <span class="small text-secondary">#Startup #Business</span>
-                                </div>
-                                <h5 class="fw-bold text-white mb-2">Co-founder for Edu-Tech Startup</h5>
-                                <p class="text-secondary small mb-3 flex-grow-1">Looking for a business-minded co-founder. I have the MVP ready. Let's validate the market together.</p>
-                                <div class="d-flex align-items-center justify-content-between border-top border-dark pt-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; background: linear-gradient(135deg, #60a5fa, #2dd4bf); font-size: 11px;">H</div>
-                                        <span class="text-secondary small">Han Dong</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 text-secondary small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>320</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>67</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card 6 -->
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card-post rounded-3 h-100 overflow-hidden">
-                            <div class="position-relative" style="height: 180px;">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUhbnmJjTBxow0tuOzmQwEmK5xeXQdnUJCYUrKHxkJ8l6bgj4SuJ0gLOeYZhJXYCE696l2QUwb8uJlsMmRLbXD9QFp5Hm4gSzXgFgkBHCx2dxXNKRMCuRtTbpvAyx-oJwvdDWKO6-26Tncmj2XziRJLUyU0mNHk3t7KbTZCS4tzAWh6T2eay6-5QweLHISH6qRwTrCbYN23OJ7YRuM8SeZTtYj9aHQQ_KKes9CGexLvX9EPmvwhrSx0KLIFbD6IArYdulMGpz1g_tY" alt="Office" class="w-100 h-100" style="object-fit: cover;">
-                                <span class="badge text-bg-secondary position-absolute top-0 end-0 m-2 fw-bold">D-14</span>
-                            </div>
-                            <div class="p-3 d-flex flex-column h-100">
-                                <div class="d-flex align-items-center gap-2 mb-2">
-                                    <span class="badge bg-warning text-dark badge-tag">External</span>
-                                    <span class="small text-secondary">#Marketing #Intern</span>
-                                </div>
-                                <h5 class="fw-bold text-white mb-2">Global Marketing Internship Prep</h5>
-                                <p class="text-secondary small mb-3 flex-grow-1">Preparing for summer internships at global tech companies. Resume review and mock interviews.</p>
-                                <div class="d-flex align-items-center justify-content-between border-top border-dark pt-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; background: linear-gradient(135deg, #fbbf24, #d97706); font-size: 11px;">J</div>
-                                        <span class="text-secondary small">Jung Min</span>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 text-secondary small">
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>95</span>
-                                        <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">favorite</span>15</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
 
                 <!-- Load more -->
                 <div class="d-flex justify-content-center mt-4">
-                    <button class="btn btn-dark border border-dark px-4 py-2 text-secondary fw-bold">Load More Opportunities</button>
+                    <button class="btn btn-dark border border-dark px-4 py-2 text-secondary fw-bold">더 많은 모집글 보기</button>
                 </div>
             </section>
         </div>
@@ -385,9 +292,9 @@
 
     <!-- Floating Action Button -->
     <div class="position-fixed bottom-0 end-0 m-4">
-        <button class="floating-btn border-0 d-flex align-items-center justify-content-center">
+        <a class="floating-btn border-0 d-flex align-items-center justify-content-center text-decoration-none" href="${ctx}/posts/new" aria-label="게시글 작성">
             <span class="material-symbols-outlined">edit</span>
-        </button>
+        </a>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
