@@ -133,36 +133,118 @@
                         </c:choose>
                     </div>
                 </c:if>
-                <form class="d-flex flex-column gap-3" method="post" action="signup_ok">
+<%--                <form class="d-flex flex-column gap-3" method="post" action="signup_ok">--%>
+<%--                    <div>--%>
+<%--                        <label for="loginId" class="form-label fw-semibold text-white small">아이디</label>--%>
+<%--                        <input type="text" class="form-control" id="loginId" name="loginId" placeholder="영문, 숫자 포함 6~12자" required>--%>
+<%--                    </div>--%>
+<%--                    <div>--%>
+<%--                        <label for="email" class="form-label fw-semibold text-white small">이메일</label>--%>
+<%--                        <div class="position-relative">--%>
+<%--                            <input type="email" class="form-control pe-5" id="email" name="email" placeholder="example@handong.edu" required>--%>
+<%--                            <span class="material-symbols-outlined position-absolute top-50 end-0 translate-middle-y me-3 text-primary" style="font-size: 20px;">mail</span>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                    <div>--%>
+<%--                        <label for="password" class="form-label fw-semibold text-white small">비밀번호</label>--%>
+<%--                        <input type="password" class="form-control" id="password" name="password" placeholder="8자 이상 입력해주세요" required>--%>
+<%--                    </div>--%>
+<%--                    <div>--%>
+<%--                        <label for="passwordConfirm" class="form-label fw-semibold text-white small">비밀번호 확인</label>--%>
+<%--                        <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 한번 더 입력해주세요" required>--%>
+<%--                    </div>--%>
+<%--                    <div class="d-flex align-items-start gap-2 p-3 rounded-3" style="background: rgba(16,29,34,0.6); border: 1px solid var(--border-dark);">--%>
+<%--                        <div class="form-check mt-1">--%>
+<%--                            <input class="form-check-input" type="checkbox" id="privacy" required>--%>
+<%--                        </div>--%>
+<%--                        <label class="small text-secondary-custom mb-0" for="privacy">--%>
+<%--                            <span class="text-white fw-bold">필수 동의</span><br>--%>
+<%--                            <a class="text-primary text-decoration-none" href="#">서비스 이용약관</a> 및 <a class="text-primary text-decoration-none" href="#">개인정보 처리방침</a>에 동의합니다.--%>
+<%--                        </label>--%>
+<%--                    </div>--%>
+<%--                    <button class="btn btn-primary w-100 py-2 fw-bold" type="submit">가입 완료</button>--%>
+<%--                </form>--%>
+                <form class="d-flex flex-column gap-3"
+                      method="post"
+                      action="${ctx}/auth/signup_ok">
+
+                    <!-- 🔴 기존 기능 에러 메시지 유지 -->
+                    <c:if test="${not empty param.msg}">
+                        <div class="alert alert-danger py-2 small text-center mb-3" role="alert">
+                            <c:choose>
+                                <c:when test="${param.msg == 'empty_field'}">모든 항목을 입력해주세요.</c:when>
+                                <c:when test="${param.msg == 'password_confirm_fail'}">비밀번호가 일치하지 않습니다.</c:when>
+                                <c:when test="${param.msg == 'already_in_use'}">이미 사용 중인 아이디입니다.</c:when>
+                                <c:otherwise>${param.msg}</c:otherwise>
+                            </c:choose>
+                        </div>
+                    </c:if>
+
+                    <!-- 아이디 -->
                     <div>
                         <label for="loginId" class="form-label fw-semibold text-white small">아이디</label>
-                        <input type="text" class="form-control" id="loginId" name="loginId" placeholder="영문, 숫자 포함 6~12자" required>
+                        <input type="text"
+                               class="form-control"
+                               id="loginId"
+                               name="loginId"
+                               placeholder="영문, 숫자 포함 6~12자">
                     </div>
+
+                    <!-- 이름 (⭐ 기능상 반드시 필요) -->
+                    <div>
+                        <label for="name" class="form-label fw-semibold text-white small">이름</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               placeholder="이름을 입력해주세요">
+                    </div>
+
+                    <!-- 이메일 -->
                     <div>
                         <label for="email" class="form-label fw-semibold text-white small">이메일</label>
-                        <div class="position-relative">
-                            <input type="email" class="form-control pe-5" id="email" name="email" placeholder="example@handong.edu" required>
-                            <span class="material-symbols-outlined position-absolute top-50 end-0 translate-middle-y me-3 text-primary" style="font-size: 20px;">mail</span>
-                        </div>
+                        <input type="email"
+                               class="form-control"
+                               id="email"
+                               name="email"
+                               placeholder="example@handong.edu">
                     </div>
+
+                    <!-- 비밀번호 -->
                     <div>
                         <label for="password" class="form-label fw-semibold text-white small">비밀번호</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="8자 이상 입력해주세요" required>
+                        <input type="password"
+                               class="form-control"
+                               id="password"
+                               name="password"
+                               placeholder="8자 이상 입력해주세요">
                     </div>
+
+                    <!-- 비밀번호 확인 -->
                     <div>
                         <label for="passwordConfirm" class="form-label fw-semibold text-white small">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 한번 더 입력해주세요" required>
+                        <input type="password"
+                               class="form-control"
+                               id="passwordConfirm"
+                               name="passwordConfirm"
+                               placeholder="비밀번호를 한번 더 입력해주세요">
                     </div>
-                    <div class="d-flex align-items-start gap-2 p-3 rounded-3" style="background: rgba(16,29,34,0.6); border: 1px solid var(--border-dark);">
+
+                    <!-- 약관 동의 (기능과 무관 → UI용) -->
+                    <div class="d-flex align-items-start gap-2 p-3 rounded-3"
+                         style="background: rgba(16,29,34,0.6); border: 1px solid var(--border-dark);">
                         <div class="form-check mt-1">
                             <input class="form-check-input" type="checkbox" id="privacy" required>
                         </div>
                         <label class="small text-secondary-custom mb-0" for="privacy">
                             <span class="text-white fw-bold">필수 동의</span><br>
-                            <a class="text-primary text-decoration-none" href="#">서비스 이용약관</a> 및 <a class="text-primary text-decoration-none" href="#">개인정보 처리방침</a>에 동의합니다.
+                            서비스 이용약관 및 개인정보 처리방침에 동의합니다.
                         </label>
                     </div>
-                    <button class="btn btn-primary w-100 py-2 fw-bold" type="submit">가입 완료</button>
+
+                    <button class="btn btn-primary w-100 py-2 fw-bold" type="submit">
+                        가입 완료
+                    </button>
                 </form>
                 <div class="text-center mt-4">
                     <span class="text-secondary-custom small">이미 계정이 있으신가요?</span>
