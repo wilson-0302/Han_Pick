@@ -100,9 +100,8 @@
         <!-- Breadcrumb -->
         <nav class="mb-4">
             <ol class="breadcrumb small mb-0">
-                <li class="breadcrumb-item"><a class="text-decoration-none text-secondary-custom" href="#">홈</a></li>
-                <li class="breadcrumb-item"><a class="text-decoration-none text-secondary-custom" href="#">프로젝트 모집</a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">2024 Hanpick 프론트엔드 개발자 모집</li>
+                <li class="breadcrumb-item"><a class="text-decoration-none text-secondary-custom" href="${ctx}/list">모집</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page"><c:out value="${post.title}"/></li>
             </ol>
         </nav>
 
@@ -113,8 +112,8 @@
                 <div class="card-dark rounded-4 p-4">
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div class="d-flex gap-2">
-                            <span class="badge bg-primary text-dark badge-tag">프로젝트</span>
-                            <span class="badge bg-success bg-opacity-75 text-white badge-tag">모집중</span>
+                            <span class="badge bg-primary text-dark badge-tag"><c:out value="${post.category}"/></span>
+                            <span class="badge bg-success bg-opacity-75 text-white badge-tag"><c:out value="${post.status}"/></span>
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-sm btn-outline-light border-0 text-secondary-custom" data-bs-toggle="dropdown">
@@ -126,18 +125,22 @@
                             </ul>
                         </div>
                     </div>
-                    <h1 class="h3 fw-bold mb-4">2024 Hanpick 프론트엔드 개발팀 팀원 모집합니다! 🚀</h1>
+                    <h1 class="h3 fw-bold mb-4"><c:out value="${post.title}"/></h1>
                     <div class="d-flex justify-content-between align-items-center border-top border-dark pt-3">
                         <div class="d-flex align-items-center gap-3">
-                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZqS5TrMLrKlPq19l5-xpf5qNDgrbY9zcXTbyWVUpXYIyQ0NeKMBq5luzwabWjevxOBNeILnK44U5_ezerVcnn0PmwCPLQAONnZAby3C5NlBKzA5NuChyBHwTGbdmpHxfy3Vd8kZ4qI9GK0MJNdDHNYPHOiliXBOhqXsDGSdk4gaHRnmatuLCi9vTDJrl0qLt6mhhw_Sj9qWpGQNv6yRkNarlIRT7A9OkUbqpzz7HdpybM2DCGQcofmmoeAWi2F6AtYJA5-pINqxyz" alt="Author" class="rounded-circle border border-dark" style="width: 44px; height: 44px; object-fit: cover;">
+                            <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center text-dark fw-bold" style="width: 44px; height: 44px;">
+                                <span class="material-symbols-outlined">person</span>
+                            </div>
                             <div>
-                                <div class="fw-semibold text-white">김학생</div>
-                                <div class="small text-secondary-custom">전산전자공학부 · 19학번</div>
+                                <div class="fw-semibold text-white"><c:out value="${post.authorId}"/></div>
+                                <c:if test="${not empty post.deadline}">
+                                    <div class="small text-secondary-custom">마감일: <c:out value="${post.deadline}"/></div>
+                                </c:if>
                             </div>
                         </div>
                         <div class="d-flex gap-3 small text-secondary-custom">
                             <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">schedule</span>2시간 전</span>
-                            <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span>125</span>
+                            <span class="d-flex align-items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;">visibility</span><c:out value="${post.viewCount}"/></span>
                         </div>
                     </div>
                 </div>
@@ -145,64 +148,28 @@
                 <!-- Body -->
                 <div class="card-dark rounded-4 p-4 p-md-5">
                     <article class="prose">
-                        <p class="fs-6 mb-4">
-                            안녕하세요! 한동대학교 학우 여러분들을 위한 통합 정보 플랫폼 <strong>Hanpick</strong> 팀입니다.<br/>
-                            저희와 함께 서비스를 고도화하고, 새로운 기능을 만들어갈 열정적인 프론트엔드 개발자를 찾고 있습니다.
-                        </p>
-                        <div class="rounded-3 overflow-hidden border border-dark mb-4">
-                            <div class="w-100 d-flex align-items-center justify-content-center" style="height:260px; background: linear-gradient(135deg, #1f2e35, #1b262d);">
-                                <span class="material-symbols-outlined text-secondary-custom" style="font-size:64px;">code</span>
-                            </div>
-                        </div>
-                        <h4 class="fw-bold mb-3">📌 모집 분야 및 인원</h4>
-                        <ul class="mb-4 ps-3">
-                            <li><strong>Front-end (React):</strong> 0명</li>
-                            <li><strong>UI/UX Designer:</strong> 0명</li>
-                        </ul>
-                        <h4 class="fw-bold mb-3">🛠 주요 업무</h4>
-                        <ul class="mb-4 ps-3">
-                            <li>기존 웹 서비스 유지보수 및 리팩토링</li>
-                            <li>신규 기능(커뮤니티, 중고장터) 페이지 개발</li>
-                            <li>Tailwind CSS 기반의 디자인 시스템 구축</li>
-                        </ul>
-                        <h4 class="fw-bold mb-3">📅 활동 기간 및 일정</h4>
-                        <p class="mb-4">
-                            - 모집 마감: 2024년 5월 20일 (금)<br/>
-                            - 인터뷰: 서류 합격자에 한해 개별 연락<br/>
-                            - 활동 기간: 2024-1학기 ~ 여름방학 (최소 6개월 권장)
-                        </p>
-                        <p class="mb-0">
-                            열정 있는 학우분들의 많은 지원 바랍니다! 궁금한 점은 댓글로 남겨주세요.
-                        </p>
+                        <pre class="fs-6 mb-0 text-white" style="white-space: pre-wrap; background: none; border: 0;"><c:out value="${post.content}"/></pre>
                     </article>
 
-                    <!-- Attachments -->
+                    <!-- Contact -->
                     <div class="mt-4 pt-4 border-top border-dark">
-                        <h6 class="fw-bold mb-3">첨부파일 <span class="text-primary">2</span></h6>
+                        <h6 class="fw-bold mb-3">지원/연락</h6>
                         <div class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <a class="d-flex align-items-center p-3 rounded-3 border border-dark text-decoration-none text-white attachment-card" href="#">
-                                    <div class="rounded bg-danger bg-opacity-25 text-danger d-flex align-items-center justify-content-center me-3" style="width:40px; height:40px;">
-                                        <span class="material-symbols-outlined">picture_as_pdf</span>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <div class="small fw-semibold text-white text-truncate">Hanpick_Introduction.pdf</div>
-                                        <div class="text-secondary-custom small">2.4 MB</div>
-                                    </div>
-                                    <span class="material-symbols-outlined text-secondary-custom">download</span>
-                                </a>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <a class="d-flex align-items-center p-3 rounded-3 border border-dark text-decoration-none text-white attachment-card" href="#">
+                            <div class="col-12">
+                                <div class="d-flex align-items-center p-3 rounded-3 border border-dark text-white attachment-card">
                                     <div class="rounded bg-primary bg-opacity-25 text-primary d-flex align-items-center justify-content-center me-3" style="width:40px; height:40px;">
-                                        <span class="material-symbols-outlined">description</span>
+                                        <span class="material-symbols-outlined">link</span>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <div class="small fw-semibold text-white text-truncate">Recruit_Form_v2.docx</div>
-                                        <div class="text-secondary-custom small">540 KB</div>
+                                        <div class="small fw-semibold text-white text-truncate">
+                                            <c:out value="${post.contactLink}"/>
+                                        </div>
+                                        <div class="text-secondary-custom small">
+                                            마감일: <c:out value="${post.deadline}"/> /
+                                            상태: <c:out value="${post.status}"/>
+                                        </div>
                                     </div>
-                                    <span class="material-symbols-outlined text-secondary-custom">download</span>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>

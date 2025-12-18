@@ -5,11 +5,13 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="board" type="com.example.project3wilson0302.board.BoardVO"/>
+        <typeAlias alias="board" type="com.example.han_pick.vo.BoardVO"/>
+        <typeAlias alias="login" type="com.example.han_pick.vo.LoginVO"/>
     </typeAliases>
 
     <mappers>
         <mapper resource="mapper/login-mapper.xml"/>
+        <mapper resource="mapper/board-mapper.xml"/>
     </mappers>
 
 </configuration>
