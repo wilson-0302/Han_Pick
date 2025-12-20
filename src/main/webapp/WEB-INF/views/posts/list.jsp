@@ -178,6 +178,20 @@
                     <c:forEach var="post" items="${posts}">
                         <c:set var="statusLower" value="${empty post.status ? '' : fn:toLowerCase(post.status)}" />
                         <c:set var="statusLabel" value="${post.status}" />
+                        <c:set var="thumbUrl" value="${post.imageUrl}" />
+                        <c:if test="${not empty post.imageUrl}">
+                            <c:choose>
+                                <c:when test="${fn:startsWith(post.imageUrl, 'http://') or fn:startsWith(post.imageUrl, 'https://') or fn:startsWith(post.imageUrl, '//')}">
+                                    <c:set var="thumbUrl" value="${post.imageUrl}" />
+                                </c:when>
+                                <c:when test="${not empty ctx and fn:startsWith(post.imageUrl, ctx)}">
+                                    <c:set var="thumbUrl" value="${post.imageUrl}" />
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="thumbUrl" value="${ctx}${fn:startsWith(post.imageUrl, '/') ? '' : '/'}${post.imageUrl}" />
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
                         <c:choose>
                             <c:when test="${fn:contains(statusLower, 'open') or fn:contains(statusLower, '모집')}">
                                 <c:set var="statusLabel" value="모집중" />
@@ -191,8 +205,8 @@
                                 <div class="card-post rounded-3 h-100 overflow-hidden">
                                     <div class="position-relative" style="height: 180px; background:#1a2a30;">
                                         <c:choose>
-                                            <c:when test="${not empty post.imageUrl}">
-                                                <img src="${post.imageUrl}" alt="post thumbnail" class="w-100 h-100" style="object-fit: cover;">
+                                            <c:when test="${not empty thumbUrl}">
+                                                <img src="${thumbUrl}" alt="post thumbnail" class="w-100 h-100" style="object-fit: cover;">
                                             </c:when>
                                             <c:otherwise>
                                                 <div class="w-100 h-100 d-flex align-items-center justify-content-center text-secondary">
