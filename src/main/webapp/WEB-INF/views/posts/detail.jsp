@@ -61,10 +61,6 @@
             border-color: var(--color-primary);
             background: rgba(43, 189, 238, 0.05);
         }
-        .sidebar-sticky {
-            position: sticky;
-            top: 96px;
-        }
     </style>
 </head>
 <body>
@@ -205,7 +201,7 @@
 
             <!-- Right -->
             <div class="col-lg-4 d-flex flex-column gap-4">
-                <div class="card-dark rounded-4 shadow sidebar-sticky">
+                <div class="card-dark rounded-4 shadow">
                     <div class="p-3 border-bottom border-dark bg-primary bg-opacity-10">
                         <h5 class="fw-bold text-primary d-flex align-items-center gap-2 mb-0"><span class="material-symbols-outlined">info</span>모집 정보</h5>
                     </div>
