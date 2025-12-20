@@ -25,4 +25,15 @@ public class LoginServiceImpl implements LoginService {
     public void join(LoginVO login) {
         loginDAO.insertMember(login);
     }
+
+    // 모든 회원 조회
+    public java.util.List<LoginVO> findAllMembers() {
+        return loginDAO.findAllMembers();
+    }
+
+    // 회원 삭제
+    public int deleteMember(Long memberId) {
+        if (memberId == null) return 0;
+        return loginDAO.deleteMember(memberId);
+    }
 }
