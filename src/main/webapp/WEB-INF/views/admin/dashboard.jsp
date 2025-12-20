@@ -1,3 +1,7 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,7 +25,6 @@
             font-family: 'Lexend', 'Noto Sans', sans-serif;
             background: var(--bg-dark);
             color: #fff;
-            overflow: hidden;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -67,20 +70,32 @@
                 </div>
                 <div>
                     <div class="fw-bold text-white">Hanpick</div>
-                    <div class="small text-secondary-custom">Admin Console</div>
+                    <div class="small text-secondary-custom">관리자 콘솔</div>
                 </div>
             </div>
         </div>
         <nav class="nav flex-column gap-1 px-2">
-            <a class="nav-link active d-flex align-items-center gap-2" href="#"><span class="material-symbols-outlined text-primary">dashboard</span>Dashboard</a>
-            <a class="nav-link d-flex align-items-center gap-2" href="#"><span class="material-symbols-outlined">group</span>User Management</a>
-            <a class="nav-link d-flex align-items-center gap-2" href="#"><span class="material-symbols-outlined">article</span>Post Management</a>
-            <a class="nav-link d-flex align-items-center gap-2" href="#"><span class="material-symbols-outlined">event_note</span>Recruitment Info</a>
-            <a class="nav-link d-flex align-items-center gap-2" href="#"><span class="material-symbols-outlined">settings</span>Settings</a>
+            <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+            <c:set var="currentPath" value="${pageContext.request.requestURI}"/>
+            <a class="nav-link ${fn:contains(currentPath, '/dashboard') ? 'active' : ''} d-flex align-items-center gap-2" href="${ctx}/admin/dashboard">
+                <span class="material-symbols-outlined ${fn:contains(currentPath, '/dashboard') ? 'text-primary' : ''}">dashboard</span>대시보드
+            </a>
+            <a class="nav-link ${fn:contains(currentPath, '/members') ? 'active' : ''} d-flex align-items-center gap-2" href="${ctx}/admin/members">
+                <span class="material-symbols-outlined ${fn:contains(currentPath, '/members') ? 'text-primary' : ''}">group</span>회원 관리
+            </a>
+            <a class="nav-link ${fn:contains(currentPath, '/posts') ? 'active' : ''} d-flex align-items-center gap-2" href="${ctx}/admin/posts">
+                <span class="material-symbols-outlined ${fn:contains(currentPath, '/posts') ? 'text-primary' : ''}">article</span>게시글 관리
+            </a>
+            <a class="nav-link ${fn:contains(currentPath, '/recruitment') ? 'active' : ''} d-flex align-items-center gap-2" href="${ctx}/admin/recruitment">
+                <span class="material-symbols-outlined ${fn:contains(currentPath, '/recruitment') ? 'text-primary' : ''}">event_note</span>모집 정보
+            </a>
+            <a class="nav-link ${fn:contains(currentPath, '/settings') ? 'active' : ''} d-flex align-items-center gap-2" href="${ctx}/admin/settings">
+                <span class="material-symbols-outlined ${fn:contains(currentPath, '/settings') ? 'text-primary' : ''}">settings</span>설정
+            </a>
         </nav>
         <div class="mt-auto border-top border-dark px-3 pt-3">
             <a class="d-flex align-items-center gap-2 text-secondary-custom text-decoration-none" href="#">
-                <span class="material-symbols-outlined">help</span>Support
+                <span class="material-symbols-outlined">help</span>고객지원
             </a>
         </div>
     </aside>
@@ -91,12 +106,12 @@
         <header class="topbar d-flex align-items-center justify-content-between px-3 px-md-4 py-3">
         <div class="d-flex align-items-center gap-3">
             <button class="btn btn-outline-light d-md-none border-0"><span class="material-symbols-outlined">menu</span></button>
-            <h5 class="mb-0 d-none d-sm-block">Dashboard Overview</h5>
+            <h5 class="mb-0 d-none d-sm-block">대시보드 개요</h5>
         </div>
             <div class="d-flex align-items-center gap-3 flex-grow-1 justify-content-end">
                 <div class="d-none d-sm-flex align-items-center bg-dark rounded-3 px-3" style="min-width:240px; max-width:320px;">
                     <span class="material-symbols-outlined text-secondary-custom me-2">search</span>
-                    <input type="text" class="form-control border-0 bg-transparent text-white p-0" placeholder="Search...">
+                    <input type="text" class="form-control border-0 bg-transparent text-white p-0" placeholder="검색...">
                 </div>
                 <button class="btn btn-outline-light border-0 position-relative">
                     <span class="material-symbols-outlined">notifications</span>
@@ -104,118 +119,196 @@
                 </button>
                 <div class="vr d-none d-sm-block" style="background:#283539;"></div>
                 <div class="d-flex align-items-center gap-2">
-                    <div class="rounded-circle overflow-hidden border border-dark" style="width:36px; height:36px;">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3efdimstuN1-WQ_oNsRysjlxUZ_4le1_20BJLbmODqC3JvmhUgDWdNBSu14cE2kOz7gIJZ8gXN0nR1WTh473XjdzdpoOqS9BtAb7TJCv4IbzKVcFkdGZwUKZmPyxCzPSyHRpnYQ1LwMtv606-byJejiMDKkXXwMYcXFRoJYL1_UIpSsFCVzl70bjfJPBArSlzlMEzgO_mP-CJj9ZgT7WZblUexC6ovc0vIkGWBUzoDJhx3gAgjIM4Zy6A9LaTyYY7sDzEbV3t-FN4" alt="Admin" class="w-100 h-100 object-fit-cover">
+                    <div class="rounded-circle overflow-hidden border border-dark d-flex align-items-center justify-content-center bg-primary" style="width:36px; height:36px;">
+                        <span class="material-symbols-outlined text-dark">admin_panel_settings</span>
                     </div>
                     <div class="d-none d-md-flex flex-column">
-                        <span class="fw-bold text-white">Admin</span>
-                        <span class="small text-secondary-custom">Super User</span>
+                        <span class="fw-bold text-white">관리자</span>
+                        <span class="small text-secondary-custom">최고 관리자</span>
                     </div>
+                    <a href="${pageContext.request.contextPath}/admin/logout" class="btn btn-outline-light btn-sm border-0 ms-2" title="로그아웃">
+                        <span class="material-symbols-outlined">logout</span>
+                    </a>
                 </div>
             </div>
         </header>
 
         <!-- Content -->
         <div class="flex-grow-1 overflow-auto p-3 p-md-4">
-            <div class="container-fluid" style="max-width: 1200px;">
+            <div class="container-fluid" style="max-width: 1400px;">
+                <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+                
+                <!-- 통계 카드 -->
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card-dark rounded-4 p-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="mb-1 text-secondary-custom small">전체 회원</p>
+                                    <h4 class="mb-0 text-white fw-bold">${members.size()}</h4>
+                                </div>
+                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width:48px; height:48px;">
+                                    <span class="material-symbols-outlined text-dark">group</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card-dark rounded-4 p-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="mb-1 text-secondary-custom small">전체 게시글</p>
+                                    <h4 class="mb-0 text-white fw-bold">${posts.size()}</h4>
+                                </div>
+                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width:48px; height:48px;">
+                                    <span class="material-symbols-outlined text-dark">article</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Management cards -->
                 <div class="row g-3 mb-4">
-                    <div class="col-12 col-lg-6">
+                    <!-- Posts 테이블 -->
+                    <div class="col-12">
                         <div class="card-dark rounded-4 p-4 h-100 d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    <h6 class="fw-bold mb-1 text-white d-flex align-items-center gap-2"><span class="material-symbols-outlined text-primary">article</span>게시글 관리</h6>
-                                    <p class="mb-0 text-secondary-custom small">최근 게시글을 검토하고 승인/삭제할 수 있습니다.</p>
+                                    <h6 class="fw-bold mb-1 text-white d-flex align-items-center gap-2">
+                                        <span class="material-symbols-outlined text-primary">article</span>게시글 관리 (Posts 테이블)
+                                    </h6>
+                                    <p class="mb-0 text-secondary-custom small">전체 게시글 목록을 확인하고 삭제할 수 있습니다.</p>
                                 </div>
-                                <button class="btn btn-primary btn-sm fw-bold text-dark">게시글 등록</button>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                                 <table class="table table-dark table-borderless table-dark-custom align-middle mb-0">
-                                    <thead>
+                                    <thead style="position: sticky; top: 0; z-index: 10; background: #1e292d;">
                                         <tr>
+                                            <th class="text-white">ID</th>
                                             <th class="text-white">제목</th>
+                                            <th class="text-white">카테고리</th>
+                                            <th class="text-white">모집인원</th>
+                                            <th class="text-white">마감일</th>
+                                            <th class="text-white">연락처</th>
                                             <th class="text-white">작성자</th>
                                             <th class="text-white">상태</th>
-                                            <th class="text-end text-white">액션</th>
+                                            <th class="text-end text-white">삭제</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-white">2024-1 창업 경진대회 팀원 모집</td>
-                                            <td class="text-secondary-custom">김지훈</td>
-                                            <td><span class="badge badge-soft-success">승인</span></td>
-                                            <td class="text-end">
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">edit</span></button>
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">delete</span></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-white">디자인 스터디 신입 모집</td>
-                                            <td class="text-secondary-custom">이민지</td>
-                                            <td><span class="badge badge-soft-warning">검토중</span></td>
-                                            <td class="text-end">
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">check_circle</span></button>
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">delete</span></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-white">개발자 구함 (React)</td>
-                                            <td class="text-secondary-custom">박현우</td>
-                                            <td><span class="badge badge-soft-success">승인</span></td>
-                                            <td class="text-end">
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">edit</span></button>
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">delete</span></button>
-                                            </td>
-                                        </tr>
+                                        <c:choose>
+                                            <c:when test="${empty posts}">
+                                                <tr>
+                                                    <td colspan="9" class="text-center text-secondary-custom py-4">등록된 게시글이 없습니다.</td>
+                                                </tr>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach var="post" items="${posts}">
+                                                    <tr>
+                                                        <td class="text-white">${post.id}</td>
+                                                        <td class="text-white">${post.title}</td>
+                                                        <td class="text-secondary-custom">${post.category}</td>
+                                                        <td class="text-secondary-custom">
+                                                            <c:choose>
+                                                                <c:when test="${post.headcount != null}">${post.headcount}명</c:when>
+                                                                <c:otherwise>-</c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                        <td class="text-secondary-custom">
+                                                            <c:if test="${post.deadline != null}">
+                                                                <fmt:formatDate value="${post.deadline}" pattern="yyyy-MM-dd"/>
+                                                            </c:if>
+                                                        </td>
+                                                        <td class="text-secondary-custom">
+                                                            <c:choose>
+                                                                <c:when test="${not empty post.contactLink}">
+                                                                    <a href="${post.contactLink}" target="_blank" class="text-primary text-decoration-none">링크</a>
+                                                                </c:when>
+                                                                <c:otherwise>-</c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                        <td class="text-secondary-custom">${post.authorId}</td>
+                                                        <td>
+                                                            <c:choose>
+                                                                <c:when test="${post.status == 'OPEN'}">
+                                                                    <span class="badge badge-soft-success">OPEN</span>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <span class="badge badge-soft-danger">CLOSED</span>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                        <td class="text-end">
+                                                            <form method="post" action="${ctx}/admin/delete-post" style="display: inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                                                <input type="hidden" name="postId" value="${post.id}">
+                                                                <button type="submit" class="btn btn-sm btn-link text-danger text-decoration-none p-0">
+                                                                    <span class="material-symbols-outlined">delete</span>
+                                                                </button>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-6">
+                    
+                    <!-- Member 테이블 -->
+                    <div class="col-12">
                         <div class="card-dark rounded-4 p-4 h-100 d-flex flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    <h6 class="fw-bold mb-1 text-white d-flex align-items-center gap-2"><span class="material-symbols-outlined text-primary">group</span>사용자 관리</h6>
-                                    <p class="mb-0 text-secondary-custom small">회원 상태 변경 및 권한 관리.</p>
+                                    <h6 class="fw-bold mb-1 text-white d-flex align-items-center gap-2">
+                                        <span class="material-symbols-outlined text-primary">group</span>회원 관리 (Member 테이블)
+                                    </h6>
+                                    <p class="mb-0 text-secondary-custom small">전체 회원 정보를 확인하고 삭제할 수 있습니다.</p>
                                 </div>
-                                <button class="btn btn-primary btn-sm fw-bold text-dark">사용자 초대</button>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                                 <table class="table table-dark table-borderless table-dark-custom align-middle mb-0">
-                                    <thead>
+                                    <thead style="position: sticky; top: 0; z-index: 10; background: #1e292d;">
                                         <tr>
+                                            <th class="text-white">회원ID</th>
+                                            <th class="text-white">로그인ID</th>
+                                            <th class="text-white">비밀번호</th>
                                             <th class="text-white">이름</th>
-                                            <th class="text-white">역할</th>
-                                            <th class="text-white">상태</th>
-                                            <th class="text-end text-white">액션</th>
+                                            <th class="text-white">이메일</th>
+                                            <th class="text-end text-white">삭제</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-white">Admin 계정</td>
-                                            <td class="text-secondary-custom">관리자</td>
-                                            <td><span class="badge badge-soft-success">활성</span></td>
-                                            <td class="text-end">
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">edit</span></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-white">김학생</td>
-                                            <td class="text-secondary-custom">작성자</td>
-                                            <td><span class="badge badge-soft-warning">일시중지</span></td>
-                                            <td class="text-end">
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">toggle_on</span></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-white">이학생</td>
-                                            <td class="text-secondary-custom">사용자</td>
-                                            <td><span class="badge badge-soft-success">활성</span></td>
-                                            <td class="text-end">
-                                                <button class="btn btn-sm btn-link text-secondary-custom text-decoration-none"><span class="material-symbols-outlined">toggle_off</span></button>
-                                            </td>
-                                        </tr>
+                                        <c:choose>
+                                            <c:when test="${empty members}">
+                                                <tr>
+                                                    <td colspan="6" class="text-center text-secondary-custom py-4">등록된 회원이 없습니다.</td>
+                                                </tr>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach var="member" items="${members}">
+                                                    <tr>
+                                                        <td class="text-white">${member.memberId}</td>
+                                                        <td class="text-white">${member.loginId}</td>
+                                                        <td class="text-secondary-custom">${member.password}</td>
+                                                        <td class="text-secondary-custom">${member.name}</td>
+                                                        <td class="text-secondary-custom">${member.email}</td>
+                                                        <td class="text-end">
+                                                            <c:if test="${member.loginId != 'admin'}">
+                                                                <form method="post" action="${ctx}/admin/delete-member" style="display: inline;" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                                                                    <input type="hidden" name="memberId" value="${member.memberId}">
+                                                                    <button type="submit" class="btn btn-sm btn-link text-danger text-decoration-none p-0">
+                                                                        <span class="material-symbols-outlined">delete</span>
+                                                                    </button>
+                                                                </form>
+                                                            </c:if>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </tbody>
                                 </table>
                             </div>
