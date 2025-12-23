@@ -62,10 +62,6 @@
             border-color: rgba(43, 189, 238, 0.3);
             background: rgba(43, 189, 238, 0.08);
         }
-        .filter-card, .sort-bar {
-            background: #132026;
-            border: 1px solid var(--border-dark);
-        }
         .card-post {
             background: var(--card-dark);
             border: 1px solid var(--border-dark);
@@ -146,59 +142,8 @@
     <!-- Main -->
     <main class="container-lg flex-grow-1 py-5">
         <div class="row g-4">
-            <!-- Sidebar -->
-            <aside class="col-12 col-lg-3">
-                <div class="filter-card rounded-3 p-3 mb-3">
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <h5 class="text-white mb-0">카테고리</h5>
-                    </div>
-                    <div class="d-flex flex-column gap-2">
-                        <div class="form-check">
-                            <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-all" checked>
-                            <label class="form-check-label text-secondary" for="cat-all">전체 게시글</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-project">
-                            <label class="form-check-label text-secondary" for="cat-project">프로젝트 모집</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-competition">
-                            <label class="form-check-label text-secondary" for="cat-competition">공모전</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-study">
-                            <label class="form-check-label text-secondary" for="cat-study">스터디</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input bg-dark border-secondary" type="checkbox" id="cat-club">
-                            <label class="form-check-label text-secondary" for="cat-club">동아리</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="filter-card rounded-3 p-3 mb-3">
-                    <h5 class="text-white mb-3">상태</h5>
-                    <div class="d-flex align-items-center justify-content-between px-3 py-2 rounded-3 border border-dark">
-                        <span class="text-secondary small">모집중만 보기</span>
-                        <div class="form-check form-switch m-0">
-                            <input class="form-check-input" type="checkbox" id="statusToggle" checked>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="filter-card rounded-3 p-3">
-                    <h5 class="text-white mb-3">포지션</h5>
-                    <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-dark border border-secondary text-secondary">개발</span>
-                        <span class="badge bg-dark border border-secondary text-secondary">디자인</span>
-                        <span class="badge bg-dark border border-secondary text-secondary">PM</span>
-                        <span class="badge bg-dark border border-secondary text-secondary">기획</span>
-                    </div>
-                </div>
-            </aside>
-
             <!-- Content -->
-            <section class="col-12 col-lg-9">
+            <section class="col-12">
                 <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
                     <p class="text-secondary small mb-0">총 <span class="fw-bold text-white"><c:out value="${fn:length(posts)}"/></span>건</p>
                     <div class="d-flex gap-2">
@@ -233,6 +178,20 @@
                     <c:forEach var="post" items="${posts}">
                         <c:set var="statusLower" value="${empty post.status ? '' : fn:toLowerCase(post.status)}" />
                         <c:set var="statusLabel" value="${post.status}" />
+                        <c:set var="thumbUrl" value="${post.imageUrl}" />
+                        <c:if test="${not empty post.imageUrl}">
+                            <c:choose>
+                                <c:when test="${fn:startsWith(post.imageUrl, 'http://') or fn:startsWith(post.imageUrl, 'https://') or fn:startsWith(post.imageUrl, '//')}">
+                                    <c:set var="thumbUrl" value="${post.imageUrl}" />
+                                </c:when>
+                                <c:when test="${not empty ctx and fn:startsWith(post.imageUrl, ctx)}">
+                                    <c:set var="thumbUrl" value="${post.imageUrl}" />
+                                </c:when>
+                                <c:otherwise>
+                                    <c:set var="thumbUrl" value="${ctx}${fn:startsWith(post.imageUrl, '/') ? '' : '/'}${post.imageUrl}" />
+                                </c:otherwise>
+                            </c:choose>
+                        </c:if>
                         <c:choose>
                             <c:when test="${fn:contains(statusLower, 'open') or fn:contains(statusLower, '모집')}">
                                 <c:set var="statusLabel" value="모집중" />
@@ -246,8 +205,8 @@
                                 <div class="card-post rounded-3 h-100 overflow-hidden">
                                     <div class="position-relative" style="height: 180px; background:#1a2a30;">
                                         <c:choose>
-                                            <c:when test="${not empty post.imageUrl}">
-                                                <img src="${post.imageUrl}" alt="post thumbnail" class="w-100 h-100" style="object-fit: cover;">
+                                            <c:when test="${not empty thumbUrl}">
+                                                <img src="${thumbUrl}" alt="post thumbnail" class="w-100 h-100" style="object-fit: cover;">
                                             </c:when>
                                             <c:otherwise>
                                                 <div class="w-100 h-100 d-flex align-items-center justify-content-center text-secondary">

@@ -182,7 +182,7 @@
 
                 <!-- Right: sidebar -->
                 <div class="col-lg-4 d-flex flex-column gap-3">
-                    <div class="card-dark rounded-4 p-4 sticky-top" style="top: 96px;">
+                    <div class="card-dark rounded-4 p-4">
                         <div class="fw-semibold mb-3">대표 이미지 / 포스터</div>
                         <label class="upload-box rounded-4 d-flex flex-column align-items-center justify-content-center gap-3 py-4 text-center w-100" style="cursor:pointer;">
                             <div class="rounded-circle d-flex align-items-center justify-content-center" style="width:48px; height:48px; background: var(--input-bg);">
@@ -204,7 +204,7 @@
                         <input type="text" name="imageUrl" id="imageUrlInput" class="form-control mt-3" placeholder="이미지 URL (선택)" value="${isEdit ? post.imageUrl : ''}">
                     </div>
 
-                    <div class="d-flex flex-column gap-2 sticky-top" style="top: 360px;">
+                    <div class="d-flex flex-column gap-2">
                         <button type="submit" class="btn btn-primary fw-bold d-flex align-items-center justify-content-center gap-1 py-2 shadow">게시하기</button>
                         <div class="d-grid gap-2">
                             <button type="button" class="btn btn-dark text-white" onclick="history.back()">취소</button>
