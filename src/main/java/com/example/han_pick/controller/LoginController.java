@@ -32,6 +32,19 @@ public class LoginController {
     public String login_ok(HttpSession session,
                            @ModelAttribute LoginVO loginVO) {
 
+        if (loginVO == null || loginVO.getLoginId() == null || loginVO.getPassword() == null) {
+            return "redirect:/auth/login?msg=loginfail";
+        }
+
+        // 관리자 체크: admin/admin1234
+        if ("admin".equals(loginVO.getLoginId()) && "admin1234".equals(loginVO.getPassword())) {
+            LoginVO admin = new LoginVO();
+            admin.setLoginId("admin");
+            admin.setName("관리자");
+            session.setAttribute("admin", admin);
+            return "redirect:/admin/dashboard";
+        }
+
         LoginVO loginUser = loginService.login(
                 loginVO.getLoginId(),
                 loginVO.getPassword()
@@ -95,24 +108,4 @@ public class LoginController {
     private boolean isBlank(String s) {
         return s == null || s.trim().isEmpty();
     }
-
-//    @PostMapping("/login_ok")
-//    String login_ok(HttpSession session, @ModelAttribute LoginVO memberVO) {
-//        LoginVO userinfo = (LoginVO) session.getAttribute("user");
-//        if (userinfo != null) {
-//            session.removeAttribute("user");
-//        }
-//        if (memberVO == null)
-//            return "login"; // 받은 로그인 요청 정보가 없으면 login페이지로
-//        if (memberVO.getLoginId().equals("admin") && memberVO.getPassword().equals("admin1234")) { // 아이디 비번이 같으면
-//            session.setAttribute("user", memberVO); // 세션을 바꾸고
-//            return "redirect:/list"; // list로 이동
-//        } else { // 아이디 비번이 틀리면
-//            return "redirect:/login/login?msg=loginfail"; // 로그인 실패 메세지와 함께 로그인 페이지로
-//        }
-//    }
-
-
-
-
 }
